@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
-import Loading from './Loading';
+import Loading from '../Loading';
 
 import { FaCalendarAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useAppContext } from '../context/appContext';
+import { useAppContext } from '../../context/appContext';
 import moment from 'moment';
-import RecipeInfo from './RecipeInfo';
+import RecipeInfo from '../RecipeInfo';
 import styled from 'styled-components';
 
-const Blog = ({
+const DisplayedBlog = ({
    _id,
    title,
    desc,
    category,
    createdAt,
    createdBy,
-   openModal,
+   /* openModal, */
 }) => {
    const { setEditBlog, deleteBlog, user, authFetch } = useAppContext();
    const [blogUser, setBlogUser] = useState(null);
@@ -65,7 +65,7 @@ const Blog = ({
    date = date.format('MMM, YYYY');
 
    return (
-      <Wrapper onClick={() => openModal(_id)}>
+      <Wrapper /* onClick={() => openModal(_id)} */>
          <header>
             <div className="info">
                <h5>{title}</h5>
@@ -122,7 +122,7 @@ const Blog = ({
    );
 };
 
-export default Blog;
+export default DisplayedBlog;
 
 const Wrapper = styled.article`
    background: var(--white);
