@@ -196,7 +196,7 @@ export default Register;
 const Wrapper = styled.section`
    display: grid;
    align-items: center;
-   max-height: 100%;
+   max-height: 100vh;
 
    background: linear-gradient(
       rgba(255, 255, 255, 0.5),
@@ -243,9 +243,39 @@ const Wrapper = styled.section`
       letter-spacing: var(--letterSpacing);
    }
 
-   .main-img {
+   /* .main-img {
       display: block;
+      width: 100%;
       position: absolute;
       z-index: -1;
+   } */
+
+   .main-img {
+      /* display: block;
+      width: 100%;
+      max-height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      z-index: -1;
+      overflow: hidden; */
+
+      width: 100%;
+      height: 100%;
+      position: absolute;
+
+      object-fit: cover;
+      z-index: -1;
+      overflow: hidden;
+
+      display: grid;
+      justify-content: center;
+      align-content: center;
+
+      svg {
+         height: 100vh !important;
+         width: auto !important;
+      }
    }
 `;
