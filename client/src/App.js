@@ -53,5 +53,5 @@ function App() {
 export default App;
 
 const Section = styled.section`
-   overflow-x: hidden;
+   /* overflow-x: hidden; */ // me echaba a perder la position: stycky de sidebar y navbar
 `;

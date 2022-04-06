@@ -196,6 +196,8 @@ export default Register;
 const Wrapper = styled.section`
    display: grid;
    align-items: center;
+   max-height: 100%;
+
    background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
@@ -243,7 +245,6 @@ const Wrapper = styled.section`
 
    .main-img {
       display: block;
-      width: 100%;
       position: absolute;
       z-index: -1;
    }

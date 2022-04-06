@@ -1,7 +1,3 @@
-import { motion } from 'framer-motion';
-import Backdrop from './Backdrop';
-///////// ////////  /////////
-//////  //////////
 import { useEffect, useState } from 'react';
 import Loading from '../Loading';
 
@@ -12,7 +8,9 @@ import moment from 'moment';
 import RecipeInfo from '../RecipeInfo';
 import styled from 'styled-components';
 
-/////// ////////
+import { motion } from 'framer-motion';
+import Backdrop from './Backdrop';
+
 const dropIn = {
    hidden: {
       y: '-100vh',
@@ -164,15 +162,10 @@ const Wrapper = styled.article`
    border-radius: var(--borderRadius);
    display: grid;
    grid-template-rows: 100px auto;
-
    box-shadow: var(--shadow-2);
 
    max-height: 90vh;
    overflow-y: scroll;
-
-   // PRUEBA
-   /* margin-left: auto;
-   margin-right: auto; */
 
    .content {
       padding: 1rem 1.5rem;
@@ -190,7 +183,6 @@ const Wrapper = styled.article`
 
       ul {
          list-style-type: disc;
-         /* padding: 1rem; */
          margin-top: 0;
          padding-top: 0;
          padding-bottom: 0.5rem;

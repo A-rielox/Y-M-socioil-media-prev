@@ -142,6 +142,15 @@ const Wrapper = styled.nav`
       border-radius: var(--borderRadius);
       visibility: hidden;
    }
+
+   .dropdown:hover {
+      background-color: var(--primary-500);
+      color: var(--white);
+   }
+   .dropdown:hover .dropdown-btn {
+      color: var(--white);
+   }
+
    .dropdown::before {
       content: '';
       display: block;
@@ -171,6 +180,7 @@ const Wrapper = styled.nav`
       display: none;
       margin: 0;
    }
+
    @media (min-width: 992px) {
       position: sticky;
       top: 0;

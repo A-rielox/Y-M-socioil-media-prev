@@ -37,10 +37,11 @@ const Fondo2 = () => {
          <svg
             // xmlns="http://www.w3.org/2000/svg"
             data-name="Layer 1"
-            width="100%"
+            height="100vh"
             // height= "auto" // por el error ( Error: <svg> attribute width: Expected length, "auto" )
             viewBox="0 0 1083.41955 818.46997"
             // xmlns:xlink="http://www.w3.org/1999/xlink"
+            className="fondillo"
          >
             <title>fall</title>
             <polygon
