@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import { AnimatePresence } from 'framer-motion';
 import ModalBlog from './modal/ModalBlog';
+import DisplayedBlog from './modal/DisplayedBlog';
 
 const BlogsContainer = () => {
    const {
@@ -69,11 +70,20 @@ const BlogsContainer = () => {
          {/* ♏♏♏♏                      👇 */}
          <AnimatePresence>
             {modalOpen && blogOpened && (
-               <ModalBlog
-                  modalOpen={modalOpen}
-                  handleClose={close}
-                  blogOpened={blogOpened}
-               />
+               // <ModalBlog
+               //    modalOpen={modalOpen}
+               //    handleClose={close}
+               //    blogOpened={blogOpened}
+               // />
+               <>
+                  <DisplayedBlog
+                     {...blogOpened}
+                     modalOpen={modalOpen}
+                     handleClose={close}
+                     blogOpened={blogOpened}
+                  />
+                  <button onClick={close}>Close</button>
+               </>
             )}
          </AnimatePresence>
       </Wrapper>
@@ -119,47 +129,21 @@ const Wrapper = styled.section`
       z-index: 100;
    }
 
-   .modal {
-      width: clamp(50%, 700px, 90%);
-      height: min(50%, 300px);
+   /* .modal { */
+   /* width: clamp(80%, 900px, 90%); */
+   /* height: min(50%, 90%); */
 
-      margin: auto;
-      /* padding: 0 2rem; */
-      /* border-radius: 12px; */
-      display: flex;
+   /* margin: auto; */
+   /* padding: 0 2rem; */
+   /* border-radius: 12px; */
+   /* display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: center; */
 
-      article {
+   /* article {
          position: relative;
          -webkit-box-shadow: 9px 9px 22px 13px rgba(0, 0, 0, 0.43);
          box-shadow: 9px 9px 22px 13px rgba(0, 0, 0, 0.43);
       }
-
-      article::before {
-         content: '';
-         position: absolute;
-         background-color: var(--primary-100);
-         /* border: 0.5rem solid var(--primary-100); */
-         border-radius: 30px;
-         width: 100%;
-         height: 100%;
-         top: -3.5rem;
-         left: -3rem;
-         z-index: -1;
-      }
-
-      article::after {
-         content: '';
-         position: absolute;
-         background-color: var(--primary-500);
-         /* border: 0.5rem solid var(--primary-500); */
-         border-radius: 20px;
-         width: 100%;
-         height: 100%;
-         bottom: -3.5rem;
-         right: -3rem;
-         z-index: -2;
-      }
-   }
+   } */
 `;

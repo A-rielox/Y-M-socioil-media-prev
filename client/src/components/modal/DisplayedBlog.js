@@ -1,3 +1,7 @@
+import { motion } from 'framer-motion';
+import Backdrop from './Backdrop';
+///////// ////////  /////////
+//////  //////////
 import { useEffect, useState } from 'react';
 import Loading from '../Loading';
 
@@ -8,6 +12,25 @@ import moment from 'moment';
 import RecipeInfo from '../RecipeInfo';
 import styled from 'styled-components';
 
+/////// ////////
+const dropIn = {
+   hidden: {
+      y: '-100vh',
+      opacity: 0,
+   },
+   visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+         duration: 0.2,
+         type: 'spring',
+         damping: 25,
+         stiffness: 500,
+      },
+   },
+   exit: { x: '-100vw', opacity: 0 },
+};
+
 const DisplayedBlog = ({
    _id,
    title,
@@ -16,6 +39,7 @@ const DisplayedBlog = ({
    createdAt,
    createdBy,
    /* openModal, */
+   handleClose,
 }) => {
    const { setEditBlog, deleteBlog, user, authFetch } = useAppContext();
    const [blogUser, setBlogUser] = useState(null);
@@ -65,60 +89,71 @@ const DisplayedBlog = ({
    date = date.format('MMM, YYYY');
 
    return (
-      <Wrapper /* onClick={() => openModal(_id)} */>
-         <header>
-            <div className="info">
-               <h5>{title}</h5>
+      <Backdrop onClick={handleClose}>
+         <motion.div
+            onClick={e => e.stopPropagation()}
+            // className="modal"
+            variants={dropIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+         >
+            <Wrapper /* onClick={() => openModal(_id)} */>
+               <header>
+                  <div className="info">
+                     <h5>{title}</h5>
 
-               <ul className="ulListProblem">
-                  <li># {category}</li>
-               </ul>
-            </div>
-         </header>
+                     <ul className="ulListProblem">
+                        <li># {category}</li>
+                     </ul>
+                  </div>
+               </header>
 
-         <div className="content">
-            <div
-               className="content-center"
-               dangerouslySetInnerHTML={{ __html: desc }}
-            ></div>
+               <div className="content">
+                  <div
+                     className="content-center"
+                     dangerouslySetInnerHTML={{ __html: desc }}
+                  ></div>
 
-            <footer>
-               <div className="actions">
-                  {user._id === createdBy ? (
-                     <Link
-                        to="/add-blog"
-                        onClick={() => setEditBlog(_id)}
-                        className="btn edit-btn"
-                     >
-                        editar
-                     </Link>
-                  ) : (
-                     <button type="button" className={`btn btn-user`}>
-                        {blogUser.name}
-                     </button>
-                  )}
-                  {user._id === createdBy ? (
-                     <button
-                        type="button"
-                        className="btn delete-btn"
-                        onClick={() => deleteBlog(_id)}
-                     >
-                        borrar
-                     </button>
-                  ) : (
-                     <button
-                        type="button"
-                        className={`btn status ${colorLevel}`}
-                     >
-                        {levelToDisplay}
-                     </button>
-                  )}
+                  <footer>
+                     <div className="actions">
+                        {user._id === createdBy ? (
+                           <Link
+                              to="/add-blog"
+                              onClick={() => setEditBlog(_id)}
+                              className="btn edit-btn"
+                           >
+                              editar
+                           </Link>
+                        ) : (
+                           <button type="button" className={`btn btn-user`}>
+                              {blogUser.name}
+                           </button>
+                        )}
+                        {user._id === createdBy ? (
+                           <button
+                              type="button"
+                              className="btn delete-btn"
+                              onClick={() => deleteBlog(_id)}
+                           >
+                              borrar
+                           </button>
+                        ) : (
+                           <button
+                              type="button"
+                              className={`btn status ${colorLevel}`}
+                           >
+                              {levelToDisplay}
+                           </button>
+                        )}
+                     </div>
+
+                     <RecipeInfo icon={<FaCalendarAlt />} text={date} />
+                  </footer>
                </div>
-
-               <RecipeInfo icon={<FaCalendarAlt />} text={date} />
-            </footer>
-         </div>
-      </Wrapper>
+            </Wrapper>
+         </motion.div>
+      </Backdrop>
    );
 };
 
@@ -132,9 +167,12 @@ const Wrapper = styled.article`
 
    box-shadow: var(--shadow-2);
 
+   max-height: 90vh;
+   overflow-y: scroll;
+
    // PRUEBA
-   margin-left: auto;
-   margin-right: auto;
+   /* margin-left: auto;
+   margin-right: auto; */
 
    .content {
       padding: 1rem 1.5rem;
