@@ -79,14 +79,6 @@ const AddRecipe = () => {
       clearValues();
    };
 
-   //////////////////////
-   //////////////////////
-   // OILS
-
-   //////////////////////
-   //////////////////////
-   // PROBLEMS
-
    return (
       <Wrapper>
          <form className="form">
@@ -356,7 +348,8 @@ const Wrapper = styled.section`
          /* border-radius: 0;
       box-shadow: none;
       padding: 0; */
-         max-width: 80%;
+         /* max-width: 80%; */
+         max-width: 740px;
          width: 100%;
       }
 

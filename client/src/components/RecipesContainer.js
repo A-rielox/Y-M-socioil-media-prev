@@ -52,7 +52,6 @@ const RecipesContainer = () => {
          <div className="recipes">
             {recipes.map(recipe => {
                return <Recipe key={recipe._id} {...recipe} openModal={open} />;
-               // return <Recipe key={recipe._id} {...recipe} />;
             })}
          </div>
 

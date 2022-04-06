@@ -11,17 +11,6 @@ import moment from 'moment';
 import RecipeInfo from '../RecipeInfo';
 import styled from 'styled-components';
 
-// createdAt: "2022-03-06T18:43:51.211Z"
-// createdBy: "62215237822281526699bee3"
-// desc: "DESCRIPCION pepi"
-// oil1: "Angelica" --> a 5
-// oilsList: (3) ['Angelica', 'Cassia', 'Copaiba']
-// problem1: "espalda" --> a 3
-// problemsList: (2) ['espalda', 'pie']
-// title: "TITULO pepi"
-// updatedAt: "2022-03-06T18:43:51.211Z"
-// _id: "622500e7d92400c2e34d395d"
-
 const DisplayedRecipe = ({
    _id,
    oilsList,
@@ -43,13 +32,6 @@ const DisplayedRecipe = ({
 
          setRecipeUser(queryUser);
       };
-
-      // lastName: "Mi Apellido"
-      // level: "ejecutivo"
-      // name: "pepi"
-      // profilePicture: ""
-      // role: "user"
-      // _id: "622f4542a381cb0d141b2e5a"
 
       fetchUser();
    }, [_id]);
