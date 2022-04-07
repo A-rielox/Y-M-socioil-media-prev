@@ -9,13 +9,15 @@ const svgVariant = {
    finish: {
       opacity: 1,
       pathLength: 1,
-      transition: {
-         duration: 3,
-         ease: 'easeInOut',
-         delay: 0.5,
-      },
+      // transition: {
+      //    duration: 3,
+      //    ease: 'easeInOut',
+      //    delay: 0.5,
+      // },
    },
 };
+
+// transition={{  type: 'spring', duration: 3, delay: 0.8 }}
 
 const svgVariantLeaf = {
    start: {
@@ -24,12 +26,14 @@ const svgVariantLeaf = {
    finish: {
       opacity: 1,
 
-      transition: {
-         duration: 1,
-         delay: 1.5,
-      },
+      // transition: {
+      //    duration: 1,
+      //    delay: 1.5,
+      // },
    },
 };
+
+// transition={{  type: 'spring', duration: 1, delay: 1.5 }}
 
 const Fondo2 = () => {
    return (
@@ -54,6 +58,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 1.5 }}
             />
             <motion.path
                d="M87.08023,807.87043a16.11455,16.11455,0,1,1,24.7679,20.622c-5.6946,6.83947-30.94374,11.98012-30.94374,11.98012S81.38562,814.7099,87.08023,807.87043Z"
@@ -62,6 +67,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 1.7 }}
             />
             <path
                d="M785.95542,283.20875c-25.9598-43.864-77.31917-45.90828-77.31917-45.90828s-50.04679-6.39993-82.15149,60.4055c-29.92415,62.26817-71.22327,122.38935-6.64883,136.96587L631.5,398.36819l7.22347,39.00642a252.66409,252.66409,0,0,0,27.629.4722c69.154-2.23271,135.01277.65322,132.89222-24.16215C796.42572,380.69614,810.934,325.4147,785.95542,283.20875Z"
@@ -135,6 +141,7 @@ const Fondo2 = () => {
                variants={svgVariant}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 3, delay: 0.8 }}
             />
             <motion.path
                d="M275.48138,594.07935c-27.498-15.32813-26.73242-39.6211-21.248-57.30079a77.6873,77.6873,0,0,1,10.8042-21.82519c24.74658-35.02832,26.98291-57.7832,24.50146-70.7041-2.69531-14.03076-11.34131-19.791-11.42822-19.84766l1.08984-1.67676c.38428.24952,9.44824,6.28858,12.30225,21.14746,3.71631,19.34815-4.63819,43.65137-24.83154,72.23536a75.6768,75.6768,0,0,0-10.52784,21.26269c-5.26513,16.97363-6.01513,40.28711,20.31153,54.96289Z"
@@ -144,6 +151,7 @@ const Fondo2 = () => {
                variants={svgVariant}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 3, delay: 1.0 }}
             />
             <motion.path
                d="M399.19818,372.08032l-.97363-1.74707c26.32666-14.67627,25.57666-37.98974,20.31152-54.9624a75.67919,75.67919,0,0,0-10.52783-21.26318c-20.19336-28.5835-28.54785-52.88721-24.83154-72.23536,2.854-14.85888,11.918-20.89794,12.30224-21.14746l1.09131,1.67578c-.0874.05762-8.77734,5.89356-11.44482,19.92774-2.4541,12.91357-.19336,35.64892,24.5166,70.625a77.69731,77.69731,0,0,1,10.8042,21.82471C425.9306,332.45776,426.69623,356.75073,399.19818,372.08032Z"
@@ -153,6 +161,7 @@ const Fondo2 = () => {
                variants={svgVariant}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 3, delay: 1.2 }}
             />
             <motion.path
                d="M457.90857,272.5774a30,30,0,1,1-50.25128-32.78427c9.05312-13.87651,54.63148-28.834,54.63148-28.834S466.9617,258.70089,457.90857,272.5774Z"
@@ -161,6 +170,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 1.9 }}
             />
             <motion.path
                d="M446.90857,179.5774a30,30,0,1,1-50.25128-32.78427c9.05312-13.87651,54.63148-28.834,54.63148-28.834S455.9617,165.70089,446.90857,179.5774Z"
@@ -169,6 +179,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 2.1 }}
             />
 
             <motion.path
@@ -180,6 +191,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 2.3 }}
             />
             <motion.path
                d="M337.42027,245.0522a30,30,0,1,1-40.42649,44.33621c-12.24311-11.16347-19.68934-58.552-19.68934-58.552S325.17716,233.88874,337.42027,245.0522Z"
@@ -188,6 +200,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 2.5 }}
             />
             <motion.path
                d="M267.42027,371.0522a30,30,0,1,1-40.42649,44.33621c-12.24311-11.16347-19.68934-58.552-19.68934-58.552S255.17716,359.88874,267.42027,371.0522Z"
@@ -196,6 +209,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 2.7 }}
             />
             <motion.path
                d="M345.88275,388.72339c-10.01318,0-29.16016-9.48193-30.03857-9.91992l-1.1167-.55664.78662-.96875c.67236-.82764,16.56543-20.29883,25.50439-22.23438h0a17.11475,17.11475,0,0,1,7.24219,33.45459A11.349,11.349,0,0,1,345.88275,388.72339Zm-28.00684-11.1582c4.71583,2.251,22.77686,10.53515,29.96192,8.978a15.11447,15.11447,0,0,0-6.39649-29.54443C334.25384,358.55493,321.23822,373.56567,317.87591,377.56519Z"
@@ -206,6 +220,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 2.9 }}
             />
             <motion.path
                d="M238.48965,795.58871a16.11456,16.11456,0,0,1,28.0494,15.87283c-4.38316,7.74563-28.31025,17.308-28.31025,17.308S234.10649,803.33434,238.48965,795.58871Z"
@@ -214,6 +229,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 3.1 }}
             />
             <motion.path
                d="M186.14838,624.0022a147.9621,147.9621,0,0,1-20.60743-1.77637l-1.23193-.2002.46387-1.1582c.396-.99023,9.793-24.30176,17.75488-28.80273h0A17.11425,17.11425,0,1,1,199.374,621.8606C196.51361,623.47778,191.4765,624.0022,186.14838,624.0022Zm-19.03516-3.5625c5.1709.749,24.87549,3.29785,31.27637-.31934a15.11489,15.11489,0,0,0-14.87744-26.31543h0C177.11224,597.4231,169.13715,615.62231,167.11322,620.4397Z"
@@ -224,6 +240,7 @@ const Fondo2 = () => {
                variants={svgVariantLeaf}
                initial="start"
                animate="finish"
+               transition={{ type: 'spring', duration: 1, delay: 3.3 }}
             />
          </svg>
       </div>
