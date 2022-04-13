@@ -67,13 +67,11 @@ const Blog = ({
    return (
       <Wrapper onClick={() => openModal(_id)}>
          <header>
-            <div className="info">
-               <h5>{title}</h5>
+            <h5>{title}</h5>
 
-               <ul className="ulListProblem">
-                  <li># {category}</li>
-               </ul>
-            </div>
+            <ul className="ulListProblem">
+               <li># {category}</li>
+            </ul>
          </header>
 
          <div className="content">
@@ -84,35 +82,13 @@ const Blog = ({
 
             <footer>
                <div className="actions">
-                  {user._id === createdBy ? (
-                     <Link
-                        to="/add-blog"
-                        onClick={() => setEditBlog(_id)}
-                        className="btn edit-btn"
-                     >
-                        editar
-                     </Link>
-                  ) : (
-                     <button type="button" className={`btn btn-user`}>
-                        {blogUser.name}
-                     </button>
-                  )}
-                  {user._id === createdBy ? (
-                     <button
-                        type="button"
-                        className="btn delete-btn"
-                        onClick={() => deleteBlog(_id)}
-                     >
-                        borrar
-                     </button>
-                  ) : (
-                     <button
-                        type="button"
-                        className={`btn status ${colorLevel}`}
-                     >
-                        {levelToDisplay}
-                     </button>
-                  )}
+                  <button type="button" className={`btn btn-user`}>
+                     {blogUser.name}
+                  </button>
+
+                  <button type="button" className={`btn status ${colorLevel}`}>
+                     {levelToDisplay}
+                  </button>
                </div>
 
                <RecipeInfo icon={<FaCalendarAlt />} text={date} />
@@ -126,23 +102,33 @@ export default Blog;
 
 const Wrapper = styled.article`
    background: var(--white);
-   border-radius: var(--borderRadius);
-   display: grid;
-   grid-template-rows: 100px auto;
 
-   box-shadow: var(--shadow-2);
+   display: flex;
+   flex-direction: column;
+
+   border-radius: 20px;
+   -webkit-box-shadow: 5px 5px 15px 5px rgba(120, 126, 203, 0.56);
+   box-shadow: 5px 5px 15px 5px rgba(120, 126, 203, 0.56);
 
    // PRUEBA
    margin-left: auto;
    margin-right: auto;
 
+   width: 95%;
+
+   /* transform: scale(0.7); */
+
    .content {
       padding: 1rem 1.5rem;
-      display: grid;
-      grid-template-rows: 1fr auto;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
    }
    .content-center {
-      border-bottom: 1px solid var(--grey-100);
+      max-height: 700px;
+      overflow: hidden;
 
       p {
          margin-bottom: 0.5rem;
@@ -152,7 +138,6 @@ const Wrapper = styled.article`
 
       ul {
          list-style-type: disc;
-         /* padding: 1rem; */
          margin-top: 0;
          padding-top: 0;
          padding-bottom: 0.5rem;
@@ -166,29 +151,62 @@ const Wrapper = styled.article`
    }
 
    @media (min-width: 700px) {
-      padding: 1rem;
+      header {
+         padding: 1rem;
+      }
+      .content {
+         padding: 1rem;
+
+         // red red red
+         margin-top: -1.5rem;
+      }
+      .content-center,
+      footer {
+         padding: 1.5rem;
+      }
    }
 
    @media (min-width: 992px) {
-      padding: 2rem;
+      header {
+         padding: 2rem;
+      }
+      .content {
+         padding: 2rem;
+
+         padding-bottom: 0.5rem;
+      }
+      footer {
+         padding-left: 0;
+         padding-right: 0;
+         padding-bottom: 0.5rem;
+      }
    }
 
    header {
-      padding: 1rem 1.5rem;
+      padding: 2rem 1.5rem;
       border-bottom: 1px solid var(--grey-100);
       display: grid;
       align-items: center;
-      height: 100px;
+
+      height: 150px;
+
+      background: linear-gradient(
+         90deg,
+         rgba(120, 126, 203, 0.9202226056438201) 0%,
+         rgba(207, 201, 220, 0.8529957148875176) 50%
+      );
+
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+
       h5 {
          letter-spacing: 0;
+         margin-bottom: 0.25rem;
+         font-weight: bold;
+         font-size: 1.6rem;
       }
    }
 
-   .info {
-      h5 {
-         margin-bottom: 0.25rem;
-      }
-   }
    .ulListProblem {
       margin: 0 20px;
       display: flex;
@@ -273,16 +291,23 @@ const Wrapper = styled.article`
    .actions {
       .btn-user {
          font-size: 0.8rem;
-         /* margin-left: 0.5rem; */
          font-weight: bold;
       }
    }
 
    footer {
       margin-top: 1rem;
+      padding-top: 1rem;
       display: flex;
-      justify-content: space-between;
+      /* justify-content: space-between; */
       align-items: center;
+
+      flex-direction: column;
+      .actions {
+         align-self: start;
+      }
+
+      border-top: 1px solid var(--grey-100);
    }
    .edit-btn,
    .delete-btn {

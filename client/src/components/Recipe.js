@@ -34,7 +34,8 @@ const Recipe = ({
    userLevel, // quitar
    openModal,
 }) => {
-   const { setEditRecipe, deleteRecipe, user, authFetch } = useAppContext();
+   const { /* setEditRecipe, deleteRecipe, */ user, authFetch } =
+      useAppContext();
    const [recipeUser, setRecipeUser] = useState(null);
 
    useEffect(() => {
@@ -195,6 +196,7 @@ const Wrapper = styled.article`
       text-transform: capitalize;
 
       border-bottom: 2px solid var(--grey-text);
+      font-size: var(--small-text);
 
       li {
          list-style-type: none;
@@ -216,6 +218,7 @@ const Wrapper = styled.article`
    .ulListProblem {
       margin: 0 20px;
       text-transform: capitalize;
+      font-size: var(--small-text);
 
       li {
          list-style-type: none;
@@ -302,8 +305,6 @@ const Wrapper = styled.article`
       flex: 7;
    }
    .content-center {
-      border-bottom: 1px solid var(--grey-100);
-
       @media (min-width: 576px) {
          /* grid-template-columns: 1fr 1fr; */
       }
@@ -340,11 +341,39 @@ const Wrapper = styled.article`
    }
 
    footer {
-      margin-top: 1rem;
+      /* margin-top: 1rem;
       display: flex;
       justify-content: space-between;
+      align-items: center; */
+
+      margin-top: 1rem;
+      padding-top: 1rem;
+      display: flex;
       align-items: center;
+
+      flex-direction: column;
+      .actions {
+         align-self: start;
+      }
+
+      border-top: 1px solid var(--grey-100);
    }
+
+   @media (min-width: 700px) {
+      footer {
+         padding: 1.5rem;
+         padding-top: 0.5rem;
+      }
+   }
+
+   @media (min-width: 992px) {
+      footer {
+         padding-left: 0;
+         padding-right: 0;
+         padding-bottom: 0.5rem;
+      }
+   }
+
    .edit-btn,
    .delete-btn {
       letter-spacing: var(--letterSpacing);

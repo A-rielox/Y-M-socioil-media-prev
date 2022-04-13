@@ -15,6 +15,7 @@ const Wrapper = styled.div`
    /* margin-top: 0.5rem; */
    display: flex;
    align-items: center;
+   align-self: end;
 
    .icon {
       font-size: 1rem;

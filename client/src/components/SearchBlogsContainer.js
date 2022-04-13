@@ -82,6 +82,10 @@ const Wrapper = styled.section`
       width: 100%;
       max-width: 100%;
       box-shadow: var(--shadow-2);
+
+      /* del gral */
+      margin: 0 auto;
+      padding-top: 1rem;
    }
    .form-input,
    .form-select,

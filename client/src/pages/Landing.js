@@ -81,7 +81,16 @@ type: "spring", stiffness: 100
 
 export default Landing;
 
+// const StyledLink = styled(Link)`
+//    justify-self: start;
+// `;
+
 const Wrapper = styled.main`
+   .info {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+   }
    nav {
       width: var(--fluid-width);
       max-width: var(--max-width);
@@ -94,6 +103,7 @@ const Wrapper = styled.main`
       min-height: calc(100vh - var(--nav-height));
       display: grid;
       align-items: center;
+      justify-content: center; ////
       margin-top: -3rem;
    }
    h1 {

@@ -14,8 +14,6 @@ const RecipesContainer = () => {
       getRecipes, recipes, isLoading, page, totalRecipes, search, searchOil,
       searchProblem, sort, numOfPages } = useAppContext();
 
-   console.log(recipes);
-
    // ♏♏♏♏
    const [modalOpen, setModalOpen] = useState(false);
    const [recipeOpened, setRecipeOpened] = useState('');
