@@ -31,8 +31,11 @@ const Modal = ({ handleClose, recipeOpened }) => {
             animate="visible"
             exit="exit"
          >
-            <DisplayedRecipe {...recipeOpened} /* openModal={open} */ />
-            <button onClick={handleClose}>Close</button>
+            <DisplayedRecipe
+               {...recipeOpened}
+               handleClose={handleClose} /* openModal={open} */
+            />
+            {/* <button onClick={handleClose}>Close</button> */}
          </motion.div>
       </Backdrop>
    );

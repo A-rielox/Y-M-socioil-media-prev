@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Loading from '../Loading';
 
 import { FaCalendarAlt } from 'react-icons/fa';
+import { ImCross } from 'react-icons/im';
+
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/appContext';
 import moment from 'moment';
@@ -149,6 +151,14 @@ const DisplayedBlog = ({
                      <RecipeInfo icon={<FaCalendarAlt />} text={date} />
                   </footer>
                </div>
+
+               <button
+                  type="button"
+                  className={`btn btn-close`}
+                  onClick={handleClose}
+               >
+                  <ImCross />
+               </button>
             </Wrapper>
          </motion.div>
       </Backdrop>
@@ -163,6 +173,8 @@ const Wrapper = styled.article`
    display: grid;
    grid-template-rows: 100px auto;
    box-shadow: var(--shadow-2);
+
+   position: relative; // pal btn close
 
    max-height: 90vh;
    overflow-y: scroll;
@@ -332,5 +344,24 @@ const Wrapper = styled.article`
    }
    &:hover .actions {
       visibility: visible;
+   }
+
+   .btn-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+
+      background-color: var(--red-light);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
+
+      &:hover {
+         background-color: var(--white);
+         color: var(--red-light);
+         border: 3px solid var(--red-light);
+      }
    }
 `;

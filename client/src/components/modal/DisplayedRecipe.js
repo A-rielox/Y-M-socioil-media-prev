@@ -19,7 +19,8 @@ const DisplayedRecipe = ({
    desc,
    createdAt,
    createdBy,
-   openModal,
+   // openModal,
+   handleClose,
 }) => {
    const { setEditRecipe, deleteRecipe, user, authFetch } = useAppContext();
    const [recipeUser, setRecipeUser] = useState(null);
@@ -138,6 +139,14 @@ const DisplayedRecipe = ({
                <RecipeInfo icon={<FaCalendarAlt />} text={date} />
             </footer>
          </div>
+
+         <button
+            type="button"
+            className={`btn btn-close`}
+            onClick={handleClose}
+         >
+            <ImCross />
+         </button>
       </Wrapper>
    );
 };
@@ -151,6 +160,8 @@ const Wrapper = styled.article`
    grid-template-rows: 100px auto;
 
    box-shadow: var(--shadow-2);
+
+   position: relative; // pal btn close
 
    header {
       padding: 1rem 1.5rem;
@@ -342,5 +353,24 @@ const Wrapper = styled.article`
    }
    @media (min-width: 1120px) {
       padding: 1.5rem;
+   }
+
+   .btn-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+
+      background-color: var(--red-light);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
+
+      &:hover {
+         background-color: var(--white);
+         color: var(--red-light);
+         border: 3px solid var(--red-light);
+      }
    }
 `;

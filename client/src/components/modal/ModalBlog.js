@@ -33,8 +33,11 @@ const ModalBlog = ({ handleClose, blogOpened }) => {
             animate="visible"
             exit="exit"
          >
-            <DisplayedBlog {...blogOpened} /* openModal={open} */ />
-            <button onClick={handleClose}>Close</button>
+            <DisplayedBlog
+               {...blogOpened}
+               handleClose={handleClose} /* openModal={open} */
+            />
+            {/* <button onClick={handleClose}>Close</button> */}
          </motion.div>
       </Backdrop>
    );
