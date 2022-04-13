@@ -14,6 +14,8 @@ const RecipesContainer = () => {
       getRecipes, recipes, isLoading, page, totalRecipes, search, searchOil,
       searchProblem, sort, numOfPages } = useAppContext();
 
+   console.log(recipes);
+
    // ♏♏♏♏
    const [modalOpen, setModalOpen] = useState(false);
    const [recipeOpened, setRecipeOpened] = useState('');
@@ -124,32 +126,6 @@ const Wrapper = styled.section`
          position: relative;
          -webkit-box-shadow: 9px 9px 22px 13px rgba(0, 0, 0, 0.43);
          box-shadow: 9px 9px 22px 13px rgba(0, 0, 0, 0.43);
-      }
-
-      article::before {
-         content: '';
-         position: absolute;
-         background-color: var(--primary-100);
-         /* border: 0.5rem solid var(--primary-100); */
-         border-radius: 30px;
-         width: 100%;
-         height: 100%;
-         top: -3.5rem;
-         left: -3rem;
-         z-index: -1;
-      }
-
-      article::after {
-         content: '';
-         position: absolute;
-         background-color: var(--primary-500);
-         /* border: 0.5rem solid var(--primary-500); */
-         border-radius: 20px;
-         width: 100%;
-         height: 100%;
-         bottom: -3.5rem;
-         right: -3rem;
-         z-index: -2;
       }
    }
 `;
