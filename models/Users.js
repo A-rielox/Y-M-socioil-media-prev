@@ -44,10 +44,6 @@ const UserSchema = new mongoose.Schema({
       enum: ['admin', 'user'],
       default: 'user',
    },
-   // isAdmin: {
-   //    type: Boolean,
-   //    default: false,
-   // },
    level: {
       type: String,
       required: [true, 'Favor de proveer un rango'],
@@ -88,9 +84,13 @@ UserSchema.pre('save', async function () {
 // INSTANCE METHOD
 UserSchema.methods.createJWT = function () {
    // console.log(this); apunta al documento
-   return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_LIFETIME,
-   });
+   return jwt.sign(
+      { userId: this._id, userRole: this.role },
+      process.env.JWT_SECRET,
+      {
+         expiresIn: process.env.JWT_LIFETIME,
+      }
+   );
 };
 
 UserSchema.methods.comparePassword = async function (candidatePassword) {

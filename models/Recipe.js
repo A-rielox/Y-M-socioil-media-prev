@@ -65,33 +65,6 @@ const RecipeSchema = new mongoose.Schema(
          ref: 'User',
          required: [true, 'Please provide user'],
       },
-      // nuevas
-      userNane: {
-         type: String,
-         // required: [true, 'Favor de proveer un nombre'],
-         // minlength: 3,
-         // maxlength: 20,
-         // trim: true,
-      },
-      userLevel: {
-         type: String,
-         enum: [
-            'distribuidor',
-            'estrella',
-            'estrella mayor',
-            'ejecutivo',
-            'plata',
-            'oro',
-            'platino',
-            'diamante',
-            'diamante corona',
-            'diamante corona real',
-         ],
-         // required: [true, 'Favor de proveer un nombre'],
-         // minlength: 3,
-         // maxlength: 20,
-         // trim: true,
-      },
    },
    { timestamps: true }
 );

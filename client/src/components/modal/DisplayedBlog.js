@@ -117,10 +117,13 @@ const DisplayedBlog = ({
 
                   <footer>
                      <div className="actions">
-                        {user._id === createdBy ? (
+                        {user._id === createdBy || user.role === 'admin' ? (
                            <Link
                               to="/add-blog"
-                              onClick={() => setEditBlog(_id)}
+                              onClick={() => {
+                                 handleClose();
+                                 setEditBlog(_id);
+                              }}
                               className="btn edit-btn"
                            >
                               editar
@@ -130,11 +133,14 @@ const DisplayedBlog = ({
                               {blogUser.name}
                            </button>
                         )}
-                        {user._id === createdBy ? (
+                        {user._id === createdBy || user.role === 'admin' ? (
                            <button
                               type="button"
                               className="btn delete-btn"
-                              onClick={() => deleteBlog(_id)}
+                              onClick={() => {
+                                 handleClose();
+                                 deleteBlog(_id);
+                              }}
                            >
                               borrar
                            </button>

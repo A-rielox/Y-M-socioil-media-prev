@@ -105,10 +105,13 @@ const DisplayedRecipe = ({
 
             <footer>
                <div className="actions">
-                  {user._id === createdBy ? (
+                  {user._id === createdBy || user.role === 'admin' ? (
                      <Link
                         to="/add-recipe"
-                        onClick={() => setEditRecipe(_id)}
+                        onClick={() => {
+                           setEditRecipe(_id);
+                           handleClose();
+                        }}
                         className="btn edit-btn"
                      >
                         editar
@@ -118,11 +121,14 @@ const DisplayedRecipe = ({
                         {recipeUser.name}
                      </button>
                   )}
-                  {user._id === createdBy ? (
+                  {user._id === createdBy || user.role === 'admin' ? (
                      <button
                         type="button"
                         className="btn delete-btn"
-                        onClick={() => deleteRecipe(_id)}
+                        onClick={() => {
+                           handleClose();
+                           deleteRecipe(_id);
+                        }}
                      >
                         borrar
                      </button>

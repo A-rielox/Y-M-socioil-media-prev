@@ -15,7 +15,8 @@ const auth = async (req, res, next) => {
       const payload = jwt.verify(token, process.env.JWT_SECRET);
 
       // crea el req.user con el _id del usuario
-      req.user = { userId: payload.userId };
+      req.user = { userId: payload.userId, userRole: payload.userRole };
+      // console.log(req.user); { userId: '6...7', userRole: 'admin' }
 
       next();
    } catch (error) {

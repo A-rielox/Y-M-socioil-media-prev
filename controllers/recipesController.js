@@ -2,9 +2,6 @@ import Recipe from '../models/Recipe.js';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
 import checkPermissions from '../utils/checkPermissions.js';
-import mongoose from 'mongoose';
-// import { rsort } from 'semver';
-// import moment from 'moment';
 
 //'/api/v1/recipes' -- .post(createRecipe)
 const createRecipe = async (req, res) => {
@@ -16,7 +13,6 @@ const createRecipe = async (req, res) => {
       throw new BadRequestError('Favor proveer todos los valores');
    }
 
-   // en lugar de mandar el nombre y level por el front ( q allá lo saco del user cuando se logea, lo podría poner en el token y sacar de acá del req.user ) -- YA NO LOS MANDO, HAY Q BORRARLOS DEL MODEL
    req.body.createdBy = req.user.userId;
 
    // OJO q estoy pasando todo el req.body
@@ -34,6 +30,7 @@ const deleteRecipe = async (req, res) => {
       throw new NotFoundError(`No encontramos receta con id: ${recipeId}`);
    }
 
+   console.log(req.user);
    checkPermissions(req.user, recipe.createdBy);
 
    await recipe.remove();

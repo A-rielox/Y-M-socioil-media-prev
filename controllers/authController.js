@@ -17,16 +17,13 @@ const register = async (req, res) => {
 
    const user = await User.create({ name, email, password });
 
-   // en el payload del token { userId: this._id }
+   // en el payload del token { userId: this._id, userRole: this.role }
    const token = user.createJWT();
+   user.password = undefined;
+   user.__v = undefined;
 
    res.status(StatusCodes.CREATED).json({
-      user: {
-         email: user.email,
-         lastName: user.lastName,
-         location: user.location,
-         name: user.name,
-      },
+      user,
       token,
       location: user.location,
    });
@@ -52,6 +49,7 @@ const login = async (req, res) => {
 
    const token = user.createJWT();
    user.password = undefined;
+   user.__v = undefined;
 
    res.status(StatusCodes.OK).json({ user, token, location: user.location });
 };
@@ -66,8 +64,6 @@ const updateUser = async (req, res) => {
    }
 
    const user = await User.findOne({ _id: req.user.userId });
-
-   // VER SI NO NECESITO ALGO COMO UN "checkPermissions(req.user, job.createdBy)", aunque se tiene q haber logeado para obtener el token, x lo tanto, el usuario q se va a modifivar es el q paso acá arriba, q tiene el _id del token q se logeó
 
    // user.email = email;
    // user.name = name;

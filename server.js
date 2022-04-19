@@ -23,9 +23,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 app.use(express.json()); // acceso a json de req.body
 
-app.get('/', (req, res) => {
-   res.send('<h1>HOLI HOLA</h1>');
-});
+// app.get('/', (req, res) => {
+//    res.send('<h1>HOLI HOLA</h1>');
+// });
 
 //===== ROUTES
 app.use('/api/v1/auth', authRouter);
