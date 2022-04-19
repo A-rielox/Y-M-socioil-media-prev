@@ -122,6 +122,7 @@ const updateBlog = async (req, res) => {
       throw new NotFoundError(`No encontramos blog con id: ${blogId}`);
    }
 
+   // tambien permite admin
    checkPermissions(req.user, blog.createdBy);
 
    // tecnicamente NO lo necesito en el front como respuesta, el updatedJob
