@@ -104,45 +104,55 @@ const DisplayedRecipe = ({
             </div>
 
             <footer>
-               <div className="actions">
-                  {user._id === createdBy || user.role === 'admin' ? (
-                     <Link
-                        to="/add-recipe"
-                        onClick={() => {
-                           setEditRecipe(_id);
-                           handleClose();
-                        }}
-                        className="btn edit-btn"
-                     >
-                        editar
-                     </Link>
-                  ) : (
-                     <button type="button" className={`btn btn-user`}>
-                        {recipeUser.name}
-                     </button>
-                  )}
-                  {user._id === createdBy || user.role === 'admin' ? (
-                     <button
-                        type="button"
-                        className="btn delete-btn"
-                        onClick={() => {
-                           handleClose();
-                           deleteRecipe(_id);
-                        }}
-                     >
-                        borrar
-                     </button>
-                  ) : (
-                     <button
-                        type="button"
-                        className={`btn status ${colorLevel}`}
-                     >
-                        {levelToDisplay}
-                     </button>
-                  )}
+               <div className="footer-user">
+                  <div className="actions">
+                     {user._id === createdBy || user.role === 'admin' ? (
+                        <Link
+                           to="/add-recipe"
+                           onClick={() => {
+                              setEditRecipe(_id);
+                              handleClose();
+                           }}
+                           className="btn edit-btn"
+                        >
+                           editar
+                        </Link>
+                     ) : (
+                        <button type="button" className={`btn btn-user`}>
+                           {recipeUser.name}
+                        </button>
+                     )}
+                     {user._id === createdBy || user.role === 'admin' ? (
+                        <button
+                           type="button"
+                           className="btn delete-btn"
+                           onClick={() => {
+                              handleClose();
+                              deleteRecipe(_id);
+                           }}
+                        >
+                           borrar
+                        </button>
+                     ) : (
+                        <button
+                           type="button"
+                           className={`btn status ${colorLevel}`}
+                        >
+                           {levelToDisplay}
+                        </button>
+                     )}
+                  </div>
+
+                  <RecipeInfo icon={<FaCalendarAlt />} text={date} />
                </div>
 
-               <RecipeInfo icon={<FaCalendarAlt />} text={date} />
+               <div className="footer-admin">
+                  {/* cambio css en footer , .footer-user , .footer-admin */}
+                  <div className="checkboxcito">
+                     <input type="checkbox" id="box-1" />
+                     <label for="box-1">En revisión</label>
+                  </div>
+               </div>
             </footer>
          </div>
 
@@ -328,9 +338,23 @@ const Wrapper = styled.article`
    footer {
       margin-top: 1rem;
       display: flex;
+      flex-direction: column;
+      /* justify-content: space-between; */
+      /* align-items: center; */
+   }
+
+   .footer-user {
+      display: flex;
       justify-content: space-between;
       align-items: center;
    }
+   .footer-admin {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
    .edit-btn,
    .delete-btn {
       letter-spacing: var(--letterSpacing);
@@ -378,5 +402,54 @@ const Wrapper = styled.article`
          color: var(--red-light);
          border: 3px solid var(--red-light);
       }
+   }
+
+   /* CHECKBOX */
+
+   input[type='checkbox'] {
+      display: none;
+   }
+
+   input[type='checkbox'] + label {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 20px;
+      font: 14px/20px 'Open Sans', Arial, sans-serif;
+      color: var(--textColor);
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+   }
+
+   input[type='checkbox'] + label:last-child {
+      margin-bottom: 0;
+   }
+
+   input[type='checkbox'] + label:before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid var(--primary-500);
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0.6;
+      -webkit-transition: all 0.12s, border-color 0.08s;
+      transition: all 0.12s, border-color 0.08s;
+   }
+
+   input[type='checkbox']:checked + label:before {
+      width: 10px;
+      top: -5px;
+      left: 5px;
+      border-radius: 0;
+      opacity: 1;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
    }
 `;
