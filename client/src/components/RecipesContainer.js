@@ -6,7 +6,9 @@ import Recipe from './Recipe';
 import styled from 'styled-components';
 
 import { AnimatePresence } from 'framer-motion';
-import Modal from './modal/Modal';
+// import Modal from './modal/Modal';
+
+import DisplayedRecipe from './modal/DisplayedRecipe';
 
 const RecipesContainer = () => {
    // prettier-ignore
@@ -60,10 +62,15 @@ const RecipesContainer = () => {
          {/* ♏♏♏♏                      👇 */}
          <AnimatePresence>
             {modalOpen && recipeOpened && (
-               <Modal
+               // <Modal
+               //    modalOpen={modalOpen}
+               //    handleClose={close}
+               //    recipeOpened={recipeOpened}
+               // />
+               <DisplayedRecipe
+                  {...recipeOpened}
                   modalOpen={modalOpen}
-                  handleClose={close}
-                  recipeOpened={recipeOpened}
+                  handleClose={close} /* openModal={open} */
                />
             )}
          </AnimatePresence>
@@ -86,13 +93,6 @@ const Wrapper = styled.section`
       grid-template-columns: 1fr;
       row-gap: 2rem;
    }
-   /* @media (min-width: 992px) {
-      .recipes {
-         display: grid;
-         grid-template-columns: 1fr 1fr;
-         gap: 1rem;
-      }
-   } */
    @media (min-width: 1200px) {
       .recipes {
          display: grid;
@@ -103,7 +103,6 @@ const Wrapper = styled.section`
 
    .backdrop {
       position: fixed;
-      /* position: absolute; */
       top: 0;
       left: 0;
       height: 100vh;
@@ -121,8 +120,6 @@ const Wrapper = styled.section`
       height: min(50%, 300px);
 
       margin: auto;
-      /* padding: 0 2rem; */
-      /* border-radius: 12px; */
       display: flex;
       flex-direction: column;
       align-items: center;

@@ -11,6 +11,31 @@ import moment from 'moment';
 import RecipeInfo from '../RecipeInfo';
 import styled from 'styled-components';
 
+import { motion } from 'framer-motion';
+import Backdrop from './Backdrop';
+
+const dropIn = {
+   hidden: {
+      y: '-100vh',
+      opacity: 0,
+   },
+   visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+         duration: 0.2,
+         type: 'spring',
+         damping: 25,
+         stiffness: 500,
+      },
+   },
+   exit: { x: '-100vw', opacity: 0 },
+};
+
+const adminInitialState = {
+   onHold: false,
+};
+
 const DisplayedRecipe = ({
    _id,
    oilsList,
@@ -24,6 +49,17 @@ const DisplayedRecipe = ({
 }) => {
    const { setEditRecipe, deleteRecipe, user, authFetch } = useAppContext();
    const [recipeUser, setRecipeUser] = useState(null);
+
+   // pal checkbox
+   const [adminValues, setAdminValues] = useState(adminInitialState);
+   const switchHold = e => {
+      // PONER DEBAJO DEL USEEFFECT PA CARGAR VALORES
+      const name = e.target.name;
+      const value = e.target.checked;
+
+      setAdminValues({ ...adminValues, [name]: value });
+      console.log(adminValues);
+   };
 
    useEffect(() => {
       const fetchUser = async () => {
@@ -70,100 +106,120 @@ const DisplayedRecipe = ({
    date = date.format('MMM, YYYY');
 
    return (
-      <Wrapper /* onClick={() => openModal(_id)} */>
-         <header>
-            <div className="info">
-               <h5>{title}</h5>
-
-               <ul className="ulListProblem">
-                  {problemsList.map((problem, index) => {
-                     return (
-                        <li key={index}>
-                           <ImCross className="icon" />
-                           {problem}
-                        </li>
-                     );
-                  })}
-               </ul>
-            </div>
-         </header>
-
-         <div className="content">
-            <div className="content-center">
-               <ul className="ulListOil">
-                  {oilsList.map((oil, index) => {
-                     return (
-                        <li key={index}>
-                           <BsFillDropletFill className="icon" />
-                           {oil}
-                        </li>
-                     );
-                  })}
-               </ul>
-               <p>{desc}</p>
-            </div>
-
-            <footer>
-               <div className="footer-user">
-                  <div className="actions">
-                     {user._id === createdBy || user.role === 'admin' ? (
-                        <Link
-                           to="/add-recipe"
-                           onClick={() => {
-                              setEditRecipe(_id);
-                              handleClose();
-                           }}
-                           className="btn edit-btn"
-                        >
-                           editar
-                        </Link>
-                     ) : (
-                        <button type="button" className={`btn btn-user`}>
-                           {recipeUser.name}
-                        </button>
-                     )}
-                     {user._id === createdBy || user.role === 'admin' ? (
-                        <button
-                           type="button"
-                           className="btn delete-btn"
-                           onClick={() => {
-                              handleClose();
-                              deleteRecipe(_id);
-                           }}
-                        >
-                           borrar
-                        </button>
-                     ) : (
-                        <button
-                           type="button"
-                           className={`btn status ${colorLevel}`}
-                        >
-                           {levelToDisplay}
-                        </button>
-                     )}
-                  </div>
-
-                  <RecipeInfo icon={<FaCalendarAlt />} text={date} />
-               </div>
-
-               <div className="footer-admin">
-                  {/* cambio css en footer , .footer-user , .footer-admin */}
-                  <div className="checkboxcito">
-                     <input type="checkbox" id="box-1" />
-                     <label for="box-1">En revisión</label>
-                  </div>
-               </div>
-            </footer>
-         </div>
-
-         <button
-            type="button"
-            className={`btn btn-close`}
-            onClick={handleClose}
+      <Backdrop onClick={handleClose}>
+         <motion.div
+            onClick={e => e.stopPropagation()}
+            // className="modal"
+            variants={dropIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
          >
-            <ImCross />
-         </button>
-      </Wrapper>
+            <Wrapper /* onClick={() => openModal(_id)} */>
+               <header>
+                  <div className="info">
+                     <h5>{title}</h5>
+
+                     <ul className="ulListProblem">
+                        {problemsList.map((problem, index) => {
+                           return (
+                              <li key={index}>
+                                 <ImCross className="icon" />
+                                 {problem}
+                              </li>
+                           );
+                        })}
+                     </ul>
+                  </div>
+               </header>
+
+               <div className="content">
+                  <div className="content-center">
+                     <ul className="ulListOil">
+                        {oilsList.map((oil, index) => {
+                           return (
+                              <li key={index}>
+                                 <BsFillDropletFill className="icon" />
+                                 {oil}
+                              </li>
+                           );
+                        })}
+                     </ul>
+                     <p>{desc}</p>
+                  </div>
+
+                  <footer>
+                     <div className="footer-user">
+                        <div className="actions">
+                           {user._id === createdBy || user.role === 'admin' ? (
+                              <Link
+                                 to="/add-recipe"
+                                 onClick={() => {
+                                    setEditRecipe(_id);
+                                    handleClose();
+                                 }}
+                                 className="btn edit-btn"
+                              >
+                                 editar
+                              </Link>
+                           ) : (
+                              <button type="button" className={`btn btn-user`}>
+                                 {recipeUser.name}
+                              </button>
+                           )}
+                           {user._id === createdBy || user.role === 'admin' ? (
+                              <button
+                                 type="button"
+                                 className="btn delete-btn"
+                                 onClick={() => {
+                                    handleClose();
+                                    deleteRecipe(_id);
+                                 }}
+                              >
+                                 borrar
+                              </button>
+                           ) : (
+                              <button
+                                 type="button"
+                                 className={`btn status ${colorLevel}`}
+                              >
+                                 {levelToDisplay}
+                              </button>
+                           )}
+                        </div>
+
+                        <RecipeInfo icon={<FaCalendarAlt />} text={date} />
+                     </div>
+
+                     {user.role === 'admin' && (
+                        <div className="footer-admin">
+                           <div className="checkboxcito">
+                              <input
+                                 type="checkbox"
+                                 id="box-1"
+                                 value={adminValues.onHold}
+                                 name="onHold"
+                                 onChange={e => {
+                                    switchHold(e);
+                                 }}
+                              />
+                              <label htmlFor="box-1">En revisión</label>
+                           </div>
+                        </div>
+                     )}
+                  </footer>
+               </div>
+
+               <button
+                  type="button"
+                  className={`btn btn-close`}
+                  onClick={handleClose}
+               >
+                  <ImCross />
+               </button>
+            </Wrapper>
+         </motion.div>
+      </Backdrop>
    );
 };
 
@@ -178,6 +234,10 @@ const Wrapper = styled.article`
    box-shadow: var(--shadow-2);
 
    position: relative; // pal btn close
+
+   max-height: 90vh;
+   max-width: 90vw;
+   overflow-y: scroll;
 
    header {
       padding: 1rem 1.5rem;
@@ -338,9 +398,10 @@ const Wrapper = styled.article`
    footer {
       margin-top: 1rem;
       display: flex;
-      flex-direction: column;
       /* justify-content: space-between; */
       /* align-items: center; */
+
+      flex-direction: column;
    }
 
    .footer-user {
@@ -377,12 +438,15 @@ const Wrapper = styled.article`
 
    @media (min-width: 576px) {
       padding: 0.5rem;
+      max-width: 80vw;
    }
    @media (min-width: 992px) {
       padding: 1rem;
+      max-width: 70vw;
    }
    @media (min-width: 1120px) {
       padding: 1.5rem;
+      max-width: 800px;
    }
 
    .btn-close {

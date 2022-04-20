@@ -31,6 +31,12 @@ const dropIn = {
    exit: { x: '-100vw', opacity: 0 },
 };
 
+const adminInitialState = {
+   onHold: false,
+   news: false,
+   featured: false,
+};
+
 const DisplayedBlog = ({
    _id,
    title,
@@ -43,6 +49,17 @@ const DisplayedBlog = ({
 }) => {
    const { setEditBlog, deleteBlog, user, authFetch } = useAppContext();
    const [blogUser, setBlogUser] = useState(null);
+
+   // pal checkbox
+   const [adminValues, setAdminValues] = useState(adminInitialState);
+   const switchHold = e => {
+      // PONER DEBAJO DEL USEEFFECT PA CARGAR VALORES
+      const name = e.target.name;
+      const value = e.target.checked;
+
+      setAdminValues({ ...adminValues, [name]: value });
+      console.log(adminValues);
+   };
 
    useEffect(() => {
       const fetchUser = async () => {
@@ -116,45 +133,90 @@ const DisplayedBlog = ({
                   ></div>
 
                   <footer>
-                     <div className="actions">
-                        {user._id === createdBy || user.role === 'admin' ? (
-                           <Link
-                              to="/add-blog"
-                              onClick={() => {
-                                 handleClose();
-                                 setEditBlog(_id);
-                              }}
-                              className="btn edit-btn"
-                           >
-                              editar
-                           </Link>
-                        ) : (
-                           <button type="button" className={`btn btn-user`}>
-                              {blogUser.name}
-                           </button>
-                        )}
-                        {user._id === createdBy || user.role === 'admin' ? (
-                           <button
-                              type="button"
-                              className="btn delete-btn"
-                              onClick={() => {
-                                 handleClose();
-                                 deleteBlog(_id);
-                              }}
-                           >
-                              borrar
-                           </button>
-                        ) : (
-                           <button
-                              type="button"
-                              className={`btn status ${colorLevel}`}
-                           >
-                              {levelToDisplay}
-                           </button>
-                        )}
+                     <div className="footer-user">
+                        <div className="actions">
+                           {user._id === createdBy || user.role === 'admin' ? (
+                              <Link
+                                 to="/add-blog"
+                                 onClick={() => {
+                                    handleClose();
+                                    setEditBlog(_id);
+                                 }}
+                                 className="btn edit-btn"
+                              >
+                                 editar
+                              </Link>
+                           ) : (
+                              <button type="button" className={`btn btn-user`}>
+                                 {blogUser.name}
+                              </button>
+                           )}
+                           {user._id === createdBy || user.role === 'admin' ? (
+                              <button
+                                 type="button"
+                                 className="btn delete-btn"
+                                 onClick={() => {
+                                    handleClose();
+                                    deleteBlog(_id);
+                                 }}
+                              >
+                                 borrar
+                              </button>
+                           ) : (
+                              <button
+                                 type="button"
+                                 className={`btn status ${colorLevel}`}
+                              >
+                                 {levelToDisplay}
+                              </button>
+                           )}
+                        </div>
+
+                        <RecipeInfo icon={<FaCalendarAlt />} text={date} />
                      </div>
 
-                     <RecipeInfo icon={<FaCalendarAlt />} text={date} />
+                     {user.role === 'admin' && (
+                        <div className="footer-admin">
+                           <div className="checkboxcito">
+                              <input
+                                 type="checkbox"
+                                 id="box-onHold"
+                                 value={adminValues.onHold}
+                                 name="onHold"
+                                 onChange={e => {
+                                    switchHold(e);
+                                 }}
+                              />
+                              <label htmlFor="box-onHold">En revisión</label>
+                           </div>
+
+                           <div className="checkboxcito">
+                              <input
+                                 type="checkbox"
+                                 id="box-news"
+                                 value={adminValues.news}
+                                 name="news"
+                                 onChange={e => {
+                                    switchHold(e);
+                                 }}
+                              />
+                              <label htmlFor="box-news">Noticia</label>
+                           </div>
+
+                           <div className="checkboxcito">
+                              <input
+                                 type="checkbox"
+                                 id="box-featured"
+                                 value={adminValues.featured}
+                                 name="featured"
+                                 onChange={e => {
+                                    switchHold(e);
+                                 }}
+                              />
+                              <label htmlFor="box-featured">Destacado</label>
+                           </div>
+                        </div>
+                     )}
                   </footer>
                </div>
 
@@ -183,6 +245,7 @@ const Wrapper = styled.article`
    position: relative; // pal btn close
 
    max-height: 90vh;
+   max-width: 95vw;
    overflow-y: scroll;
 
    .content {
@@ -215,10 +278,16 @@ const Wrapper = styled.article`
 
    @media (min-width: 700px) {
       padding: 1rem;
+      max-width: 80vw;
    }
 
    @media (min-width: 992px) {
       padding: 2rem;
+      max-width: 70vw;
+   }
+   @media (min-width: 1120px) {
+      padding: 1.5rem;
+      max-width: 800px;
    }
 
    header {
@@ -329,9 +398,24 @@ const Wrapper = styled.article`
    footer {
       margin-top: 1rem;
       display: flex;
+      /* justify-content: space-between; */
+      /* align-items: center; */
+
+      flex-direction: column;
+   }
+
+   .footer-user {
+      display: flex;
       justify-content: space-between;
       align-items: center;
    }
+   .footer-admin {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+
    .edit-btn,
    .delete-btn {
       letter-spacing: var(--letterSpacing);
@@ -369,5 +453,54 @@ const Wrapper = styled.article`
          color: var(--red-light);
          border: 3px solid var(--red-light);
       }
+   }
+
+   /* CHECKBOX */
+
+   input[type='checkbox'] {
+      display: none;
+   }
+
+   input[type='checkbox'] + label {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 20px;
+      font: 14px/20px 'Open Sans', Arial, sans-serif;
+      color: var(--textColor);
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+   }
+
+   input[type='checkbox'] + label:last-child {
+      margin-bottom: 0;
+   }
+
+   input[type='checkbox'] + label:before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid var(--primary-500);
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0.6;
+      -webkit-transition: all 0.12s, border-color 0.08s;
+      transition: all 0.12s, border-color 0.08s;
+   }
+
+   input[type='checkbox']:checked + label:before {
+      width: 10px;
+      top: -5px;
+      left: 5px;
+      border-radius: 0;
+      opacity: 1;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
    }
 `;

@@ -6,7 +6,6 @@ import Blog from './Blog';
 import styled from 'styled-components';
 
 import { AnimatePresence } from 'framer-motion';
-import ModalBlog from './modal/ModalBlog';
 import DisplayedBlog from './modal/DisplayedBlog';
 
 const BlogsContainer = () => {
@@ -80,7 +79,7 @@ const BlogsContainer = () => {
                      {...blogOpened}
                      modalOpen={modalOpen}
                      handleClose={close}
-                     blogOpened={blogOpened}
+                     // blogOpened={blogOpened}
                   />
                   <button onClick={close}>Close</button>
                </>
@@ -116,7 +115,6 @@ const Wrapper = styled.section`
 
    .backdrop {
       position: fixed;
-      /* position: absolute; */
       top: 0;
       left: 0;
       height: 100vh;
@@ -128,22 +126,4 @@ const Wrapper = styled.section`
 
       z-index: 100;
    }
-
-   /* .modal { */
-   /* width: clamp(80%, 900px, 90%); */
-   /* height: min(50%, 90%); */
-
-   /* margin: auto; */
-   /* padding: 0 2rem; */
-   /* border-radius: 12px; */
-   /* display: flex;
-      flex-direction: column;
-      align-items: center; */
-
-   /* article {
-         position: relative;
-         -webkit-box-shadow: 9px 9px 22px 13px rgba(0, 0, 0, 0.43);
-         box-shadow: 9px 9px 22px 13px rgba(0, 0, 0, 0.43);
-      }
-   } */
 `;
