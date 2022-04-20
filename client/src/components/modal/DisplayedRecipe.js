@@ -10,6 +10,7 @@ import { useAppContext } from '../../context/appContext';
 import moment from 'moment';
 import RecipeInfo from '../RecipeInfo';
 import styled from 'styled-components';
+import { BsArrowRightSquareFill } from 'react-icons/bs';
 
 import { motion } from 'framer-motion';
 import Backdrop from './Backdrop';
@@ -192,19 +193,30 @@ const DisplayedRecipe = ({
                      </div>
 
                      {user.role === 'admin' && (
-                        <div className="footer-admin">
-                           <div className="checkboxcito">
-                              <input
-                                 type="checkbox"
-                                 id="box-1"
-                                 value={adminValues.onHold}
-                                 name="onHold"
-                                 onChange={e => {
-                                    switchHold(e);
-                                 }}
-                              />
-                              <label htmlFor="box-1">En revisión</label>
+                        <div className="footer-admin-wrapper">
+                           <div className="footer-admin">
+                              <div className="checkboxcito">
+                                 <input
+                                    type="checkbox"
+                                    id="box-1"
+                                    value={adminValues.onHold}
+                                    name="onHold"
+                                    onChange={e => {
+                                       switchHold(e);
+                                    }}
+                                 />
+                                 <label htmlFor="box-1">En revisión</label>
+                              </div>
                            </div>
+
+                           <button
+                              type="button"
+                              className={`btn btn-edit`}
+                              onClick={() => {}}
+                           >
+                              Guardar
+                              <BsArrowRightSquareFill />
+                           </button>
                         </div>
                      )}
                   </footer>
@@ -398,8 +410,6 @@ const Wrapper = styled.article`
    footer {
       margin-top: 1rem;
       display: flex;
-      /* justify-content: space-between; */
-      /* align-items: center; */
 
       flex-direction: column;
    }
@@ -409,8 +419,14 @@ const Wrapper = styled.article`
       justify-content: space-between;
       align-items: center;
    }
+   .footer-admin-wrapper {
+      display: flex;
+      flex-direction: column;
+   }
    .footer-admin {
       margin-top: 1rem;
+      border-top: 1px solid var(--grey-100);
+      padding-top: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -466,6 +482,16 @@ const Wrapper = styled.article`
          color: var(--red-light);
          border: 3px solid var(--red-light);
       }
+   }
+
+   .btn-edit {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
    }
 
    /* CHECKBOX */

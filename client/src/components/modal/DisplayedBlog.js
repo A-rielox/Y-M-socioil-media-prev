@@ -3,6 +3,7 @@ import Loading from '../Loading';
 
 import { FaCalendarAlt } from 'react-icons/fa';
 import { ImCross } from 'react-icons/im';
+import { BsArrowRightSquareFill } from 'react-icons/bs';
 
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/appContext';
@@ -176,45 +177,56 @@ const DisplayedBlog = ({
                      </div>
 
                      {user.role === 'admin' && (
-                        <div className="footer-admin">
-                           <div className="checkboxcito">
-                              <input
-                                 type="checkbox"
-                                 id="box-onHold"
-                                 value={adminValues.onHold}
-                                 name="onHold"
-                                 onChange={e => {
-                                    switchHold(e);
-                                 }}
-                              />
-                              <label htmlFor="box-onHold">En revisión</label>
+                        <div className="footer-admin-wrapper">
+                           <div className="footer-admin">
+                              <div className="checkboxcito">
+                                 <input
+                                    type="checkbox"
+                                    id="box-onHold"
+                                    value={adminValues.onHold}
+                                    name="onHold"
+                                    onChange={e => {
+                                       switchHold(e);
+                                    }}
+                                 />
+                                 <label htmlFor="box-onHold">En revisión</label>
+                              </div>
+
+                              <div className="checkboxcito">
+                                 <input
+                                    type="checkbox"
+                                    id="box-news"
+                                    value={adminValues.news}
+                                    name="news"
+                                    onChange={e => {
+                                       switchHold(e);
+                                    }}
+                                 />
+                                 <label htmlFor="box-news">Noticia</label>
+                              </div>
+
+                              <div className="checkboxcito">
+                                 <input
+                                    type="checkbox"
+                                    id="box-featured"
+                                    value={adminValues.featured}
+                                    name="featured"
+                                    onChange={e => {
+                                       switchHold(e);
+                                    }}
+                                 />
+                                 <label htmlFor="box-featured">Destacado</label>
+                              </div>
                            </div>
 
-                           <div className="checkboxcito">
-                              <input
-                                 type="checkbox"
-                                 id="box-news"
-                                 value={adminValues.news}
-                                 name="news"
-                                 onChange={e => {
-                                    switchHold(e);
-                                 }}
-                              />
-                              <label htmlFor="box-news">Noticia</label>
-                           </div>
-
-                           <div className="checkboxcito">
-                              <input
-                                 type="checkbox"
-                                 id="box-featured"
-                                 value={adminValues.featured}
-                                 name="featured"
-                                 onChange={e => {
-                                    switchHold(e);
-                                 }}
-                              />
-                              <label htmlFor="box-featured">Destacado</label>
-                           </div>
+                           <button
+                              type="button"
+                              className={`btn btn-edit`}
+                              onClick={() => {}}
+                           >
+                              Guardar
+                              <BsArrowRightSquareFill />
+                           </button>
                         </div>
                      )}
                   </footer>
@@ -390,7 +402,6 @@ const Wrapper = styled.article`
    .actions {
       .btn-user {
          font-size: 0.8rem;
-         /* margin-left: 0.5rem; */
          font-weight: bold;
       }
    }
@@ -398,9 +409,6 @@ const Wrapper = styled.article`
    footer {
       margin-top: 1rem;
       display: flex;
-      /* justify-content: space-between; */
-      /* align-items: center; */
-
       flex-direction: column;
    }
 
@@ -409,11 +417,30 @@ const Wrapper = styled.article`
       justify-content: space-between;
       align-items: center;
    }
+
+   .footer-admin-wrapper {
+      display: flex;
+      flex-direction: column;
+   }
    .footer-admin {
-      margin-top: 2rem;
+      margin-top: 1rem;
+      border-top: 1px solid var(--grey-100);
+      padding-top: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      @media (max-width: 450px) {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+
+         .checkboxcito {
+            width: 120px;
+            margin-top: 1rem;
+         }
+      }
    }
 
    .edit-btn,
@@ -453,6 +480,16 @@ const Wrapper = styled.article`
          color: var(--red-light);
          border: 3px solid var(--red-light);
       }
+   }
+
+   .btn-edit {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
    }
 
    /* CHECKBOX */
