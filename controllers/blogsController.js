@@ -110,6 +110,25 @@ const getAllBlogs = async (req, res) => {
    });
 };
 
+const getSingleBlog = async (req, res) => {
+   /* 
+   if (!req.query.userId) {
+      throw new BadRequestError('Favor introducir userId');
+   }
+   const userId = req.query.userId;
+
+   const user = await User.findById(userId);
+   if (!user) {
+      throw new NotFoundError(`No encontramos usuario con id: ${userId}`);
+   }
+
+   const { _id, name, lastName, role, level, profilePicture } = user;
+
+   const queryUser = { _id, name, lastName, role, level, profilePicture };
+
+   res.status(StatusCodes.OK).json({ queryUser }); */
+};
+
 //'/api/v1/blogs' -- .route('/:id').patch(updateBlog)
 const updateBlog = async (req, res) => {
    const { id: blogId } = req.params;
@@ -142,7 +161,14 @@ const updateAdminBlog = async (req, res) => {
    const { id: blogId } = req.params;
    const { onHold, news, featured } = req.body;
 
-   if (!onHold || !news || !featured) {
+   // console.log(req.body); { onHold: true, news: false, featured: true }
+   // console.log(typeof news); boolean
+
+   if (
+      typeof onHold !== 'boolean' ||
+      typeof news !== 'boolean' ||
+      typeof featured !== 'boolean'
+   ) {
       throw new BadRequestError('Favor proveer todos los valores');
    }
 

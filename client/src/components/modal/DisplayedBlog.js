@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Loading from '../Loading';
 
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -39,32 +39,19 @@ const DisplayedBlog = ({
    category,
    createdAt,
    createdBy,
-   /* openModal, */
    handleClose,
    // admin
    onHold,
    news,
    featured,
+   //
 }) => {
    const { setEditBlog, deleteBlog, user, authFetch } = useAppContext();
    const [blogUser, setBlogUser] = useState(null);
-
    // pal checkbox
    const [adminValues, setAdminValues] = useState({ onHold, news, featured });
 
-   const switchAdminValues = e => {
-      // PONER DEBAJO DEL USEEFFECT PA CARGAR VALORES
-      const name = e.target.name;
-      const checked = e.target.checked;
-
-      setAdminValues({ ...adminValues, [name]: checked });
-   };
-
-   // PARA OBTENER EL VALOR ACTUAL
-   useEffect(() => {
-      console.log('desde useEffect ', adminValues);
-   }, [adminValues]);
-
+   // FETCH PARA OBTENER VALORES DE NOMBRE Y RANGO DE LA RECETA
    useEffect(() => {
       const fetchUser = async () => {
          const {
@@ -76,6 +63,43 @@ const DisplayedBlog = ({
 
       fetchUser();
    }, [_id]);
+
+   // ACTUALIZA VALORES ADMIN
+   const switchAdminValues = e => {
+      const name = e.target.name;
+      const checked = e.target.checked;
+
+      setAdminValues({ ...adminValues, [name]: checked });
+   };
+
+   // ENVIA VALORES ADMIN A DB
+   const timerRef = useRef(null); // para 👍
+   const submitAdminValues = e => {
+      clearTimeout(timerRef.current);
+
+      // actualizando
+      const updateAdminValues = async () => {
+         await authFetch.patch(`/blogs/admin/${_id}`, {
+            onHold: adminValues.onHold,
+            news: adminValues.news,
+            featured: adminValues.featured,
+         });
+
+         // NO NECESITO ACTUALIZAR LOS DATOS CON LA RESPUESTA XQ MI ESTADO DE LOS CHECKBOX YA REPRESENTA EL VALOR DE LA DB
+      };
+
+      updateAdminValues();
+      // fin actualizando
+
+      const guardarBtn = e.target;
+      guardarBtn.firstElementChild.classList.toggle('ready');
+
+      timerRef.current = setTimeout(() => {
+         guardarBtn.firstElementChild.classList.toggle('ready');
+      }, 3000);
+
+      // PARA ACTUALIZAR LISTA DE TODOS LOS BLOGS
+   };
 
    if (!blogUser) {
       return <Loading center />;
@@ -225,9 +249,10 @@ const DisplayedBlog = ({
                            <button
                               type="button"
                               className={`btn btn-edit`}
-                              onClick={() => {}}
+                              onClick={e => submitAdminValues(e)}
                            >
                               Guardar
+                              <span className="edit-success">👍</span>
                               <BsArrowRightSquareFill />
                            </button>
                         </div>
@@ -493,6 +518,17 @@ const Wrapper = styled.article`
       align-items: center;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
+
+      position: relative;
+      /*      👍           */
+      .edit-success {
+         display: none;
+         position: absolute;
+      }
+      .ready {
+         display: block;
+         right: 20px;
+      }
    }
 
    /* CHECKBOX */
