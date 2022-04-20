@@ -11,6 +11,16 @@ const checkPermissions = (requestUser, resourceUserId) => {
    );
 };
 
+export const checkAdminPermissions = requestUser => {
+   console.log('del check admin', requestUser);
+
+   if (requestUser.userRole === 'admin') return;
+
+   throw new UnauthenticatedError(
+      'No cuentas con autorización para acceder a este recurso'
+   );
+};
+
 export default checkPermissions;
 
 //se pasa todo el user (requestUser) xq tengo q checar si es q es admin, para q tambien sea capaz de editar el job aun cuando no lo haya creado él

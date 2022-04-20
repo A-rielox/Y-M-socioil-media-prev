@@ -59,8 +59,12 @@ const DisplayedBlog = ({
       const value = e.target.checked;
 
       setAdminValues({ ...adminValues, [name]: value });
-      console.log(adminValues);
    };
+
+   // PARA OBTENER EL VALOR ACTUAL
+   useEffect(() => {
+      console.log('desde useEffect ', adminValues);
+   }, [adminValues]);
 
    useEffect(() => {
       const fetchUser = async () => {

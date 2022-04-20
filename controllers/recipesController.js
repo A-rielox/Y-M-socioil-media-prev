@@ -1,7 +1,9 @@
 import Recipe from '../models/Recipe.js';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
-import checkPermissions from '../utils/checkPermissions.js';
+import checkPermissions, {
+   checkAdminPermissions,
+} from '../utils/checkPermissions.js';
 
 //'/api/v1/recipes' -- .post(createRecipe)
 const createRecipe = async (req, res) => {
@@ -139,9 +141,46 @@ const updateRecipe = async (req, res) => {
    res.status(StatusCodes.OK).json({ updatedRecipe });
 };
 
+const updateAdminRecipe = async (req, res) => {
+   const { id: recipeId } = req.params;
+   const { onHold } = req.body;
+
+   if (!onHold) {
+      throw new BadRequestError('Favor proveer todos los valores');
+   }
+
+   const recipe = await Recipe.findOne({ _id: recipeId });
+   if (!recipe) {
+      throw new NotFoundError(`No encontramos receta con id: ${recipeId}`);
+   }
+
+   // permite solo admin
+   checkAdminPermissions(req.user, recipe.createdBy);
+
+   // tecnicamente NO lo necesito en el front como respuesta
+   // OJO q le paso todo el req.body
+   const updatedAdminRecipe = await Recipe.findOneAndUpdate(
+      { _id: recipeId },
+      req.body,
+      {
+         new: true,
+         runValidators: true,
+      }
+   );
+
+   res.status(StatusCodes.OK).json({ updatedAdminRecipe });
+};
+
 //'/api/v1/recipes' -- route('/stats').get(showStats);
 const showStats = async (req, res) => {
    res.send('<h1> show stats</h1>');
 };
 
-export { createRecipe, deleteRecipe, getAllRecipes, updateRecipe, showStats };
+export {
+   createRecipe,
+   deleteRecipe,
+   getAllRecipes,
+   updateRecipe,
+   showStats,
+   updateAdminRecipe,
+};

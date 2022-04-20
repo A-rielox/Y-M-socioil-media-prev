@@ -65,6 +65,12 @@ const RecipeSchema = new mongoose.Schema(
          ref: 'User',
          required: [true, 'Please provide user'],
       },
+      // admin
+      onHold: {
+         type: Boolean,
+         default: false,
+         required: [true, 'Please provide a value'],
+      },
    },
    { timestamps: true }
 );

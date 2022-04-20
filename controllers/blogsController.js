@@ -1,7 +1,9 @@
 import Blog from '../models/Blog.js';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
-import checkPermissions from '../utils/checkPermissions.js';
+import checkPermissions, {
+   checkAdminPermissions,
+} from '../utils/checkPermissions.js';
 import mongoose from 'mongoose';
 
 //'/api/v1/blogs' -- .post(createBlog)
@@ -125,7 +127,7 @@ const updateBlog = async (req, res) => {
    // tambien permite admin
    checkPermissions(req.user, blog.createdBy);
 
-   // tecnicamente NO lo necesito en el front como respuesta, el updatedJob
+   // tecnicamente NO lo necesito en el front como respuesta,
    // OJO q le paso todo el req.body
    const updatedBlog = await Blog.findOneAndUpdate({ _id: blogId }, req.body, {
       new: true,
@@ -135,9 +137,47 @@ const updateBlog = async (req, res) => {
    res.status(StatusCodes.OK).json({ updatedBlog });
 };
 
+//'/api/v1/blogs' -- router.route('/admin/:id').patch(updateAdminBlog);
+const updateAdminBlog = async (req, res) => {
+   const { id: blogId } = req.params;
+   const { onHold, news, featured } = req.body;
+
+   if (!onHold || !news || !featured) {
+      throw new BadRequestError('Favor proveer todos los valores');
+   }
+
+   const blog = await Blog.findOne({ _id: blogId });
+   if (!blog) {
+      throw new NotFoundError(`No encontramos blog con id: ${blogId}`);
+   }
+
+   // permite solo admin
+   checkAdminPermissions(req.user, blog.createdBy);
+
+   // tecnicamente NO lo necesito en el front como respuesta
+   // OJO q le paso todo el req.body
+   const updatedAdminBlog = await Blog.findOneAndUpdate(
+      { _id: blogId },
+      req.body,
+      {
+         new: true,
+         runValidators: true,
+      }
+   );
+
+   res.status(StatusCodes.OK).json({ updatedAdminBlog });
+};
+
 //'/api/v1/blogs' -- route('/stats').get(showStats);
 const showStats = async (req, res) => {
    res.send('<h1> show stats blogs</h1>');
 };
 
-export { createBlog, deleteBlog, getAllBlogs, updateBlog, showStats };
+export {
+   createBlog,
+   deleteBlog,
+   getAllBlogs,
+   updateBlog,
+   showStats,
+   updateAdminBlog,
+};
