@@ -33,9 +33,9 @@ const dropIn = {
    exit: { x: '-100vw', opacity: 0 },
 };
 
-const adminInitialState = {
-   onHold: false,
-};
+// const adminInitialState = {
+//    onHold: false,
+// };
 
 const DisplayedRecipe = ({
    _id,
@@ -47,18 +47,19 @@ const DisplayedRecipe = ({
    createdBy,
    // openModal,
    handleClose,
+   onHold,
 }) => {
    const { setEditRecipe, deleteRecipe, user, authFetch } = useAppContext();
    const [recipeUser, setRecipeUser] = useState(null);
 
    // pal checkbox
-   const [adminValues, setAdminValues] = useState(adminInitialState);
+   const [adminValues, setAdminValues] = useState({ onHold });
    const switchHold = e => {
       // PONER DEBAJO DEL USEEFFECT PA CARGAR VALORES
       const name = e.target.name;
-      const value = e.target.checked;
+      const checked = e.target.checked;
 
-      setAdminValues({ ...adminValues, [name]: value });
+      setAdminValues({ ...adminValues, [name]: checked });
       console.log(adminValues);
    };
 
@@ -199,7 +200,7 @@ const DisplayedRecipe = ({
                                  <input
                                     type="checkbox"
                                     id="box-1"
-                                    value={adminValues.onHold}
+                                    checked={adminValues.onHold}
                                     name="onHold"
                                     onChange={e => {
                                        switchHold(e);
