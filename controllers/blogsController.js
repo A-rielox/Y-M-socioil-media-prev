@@ -110,23 +110,21 @@ const getAllBlogs = async (req, res) => {
    });
 };
 
+// route('/getBlog').get(getSingleBlog);
 const getSingleBlog = async (req, res) => {
-   /* 
-   if (!req.query.userId) {
-      throw new BadRequestError('Favor introducir userId');
+   if (!req.query.blogId) {
+      throw new BadRequestError('Favor introducir blogId');
    }
-   const userId = req.query.userId;
+   const blogId = req.query.blogId;
 
-   const user = await User.findById(userId);
-   if (!user) {
-      throw new NotFoundError(`No encontramos usuario con id: ${userId}`);
+   const blog = await Blog.findById(blogId);
+   if (!blog) {
+      throw new NotFoundError(`🤦 No encontramos un blog con id: ${blogId}`);
    }
 
-   const { _id, name, lastName, role, level, profilePicture } = user;
+   const { updatedAt, __v, ...queryBlog } = blog._doc;
 
-   const queryUser = { _id, name, lastName, role, level, profilePicture };
-
-   res.status(StatusCodes.OK).json({ queryUser }); */
+   res.status(StatusCodes.OK).json({ queryBlog });
 };
 
 //'/api/v1/blogs' -- .route('/:id').patch(updateBlog)
@@ -206,4 +204,5 @@ export {
    updateBlog,
    showStats,
    updateAdminBlog,
+   getSingleBlog,
 };

@@ -8,10 +8,13 @@ import {
    updateBlog,
    showStats,
    updateAdminBlog,
+   getSingleBlog,
 } from '../controllers/blogsController.js';
 
 //'/api/v1/blogs'
 router.route('/').post(createBlog).get(getAllBlogs);
+router.route('/getBlog').get(getSingleBlog);
+
 router.route('/stats').get(showStats);
 
 router.route('/admin/:id').patch(updateAdminBlog);
