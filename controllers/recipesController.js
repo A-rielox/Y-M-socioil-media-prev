@@ -110,6 +110,25 @@ const getAllRecipes = async (req, res) => {
    });
 };
 
+// route('/getRecipe').get(getSingleRecipe);
+const getSingleRecipe = async (req, res) => {
+   if (!req.query.recipeId) {
+      throw new BadRequestError('Favor introducir recipeId');
+   }
+   const recipeId = req.query.recipeId;
+
+   const recipe = await Recipe.findById(recipeId);
+   if (!recipe) {
+      throw new NotFoundError(
+         `🤦 No encontramos una receta con id: ${recipeId}`
+      );
+   }
+
+   const { updatedAt, __v, ...queryRecipe } = recipe._doc;
+
+   res.status(StatusCodes.OK).json({ queryRecipe });
+};
+
 //'/api/v1/recipes' -- .route('/:id').patch(updateRecipe)
 const updateRecipe = async (req, res) => {
    const { id: recipeId } = req.params;
@@ -183,4 +202,5 @@ export {
    updateRecipe,
    showStats,
    updateAdminRecipe,
+   getSingleRecipe,
 };

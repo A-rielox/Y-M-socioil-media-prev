@@ -8,10 +8,13 @@ import {
    updateRecipe,
    showStats,
    updateAdminRecipe,
+   getSingleRecipe,
 } from '../controllers/recipesController.js';
 
 //'/api/v1/recipes'
 router.route('/').post(createRecipe).get(getAllRecipes);
+router.route('/getRecipe').get(getSingleRecipe);
+
 router.route('/stats').get(showStats);
 
 router.route('/admin/:id').patch(updateAdminRecipe);

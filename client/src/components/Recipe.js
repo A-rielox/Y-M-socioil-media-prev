@@ -114,8 +114,6 @@ const Recipe = ({
                   <button type="button" className={`btn status ${colorLevel}`}>
                      {levelToDisplay}
                   </button>
-
-                  {/* <div className={`status ${status}`}>{status}</div> */}
                </div>
 
                <RecipeInfo icon={<FaCalendarAlt />} text={date} />

@@ -25,9 +25,7 @@ const BlogsContainer = () => {
    // ♏♏♏♏
    const [modalOpen, setModalOpen] = useState(false);
    const [blogOpened, setBlogOpened] = useState('');
-   const close = () => {
-      setModalOpen(false);
-   };
+   const close = () => setModalOpen(false);
    const open = blogId => {
       setModalOpen(true);
 
@@ -81,7 +79,7 @@ const BlogsContainer = () => {
                      modalOpen={modalOpen}
                      handleClose={close}
                   />
-                  <button onClick={close}>Close</button>
+                  {/* <button onClick={close}>Close</button> */}
                </>
             )}
          </AnimatePresence>

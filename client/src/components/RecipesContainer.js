@@ -6,8 +6,6 @@ import Recipe from './Recipe';
 import styled from 'styled-components';
 
 import { AnimatePresence } from 'framer-motion';
-// import Modal from './modal/Modal';
-
 import DisplayedRecipe from './modal/DisplayedRecipe';
 
 const RecipesContainer = () => {
@@ -62,7 +60,7 @@ const RecipesContainer = () => {
          {/* ♏♏♏♏                      👇 */}
          <AnimatePresence>
             {modalOpen && recipeOpened && (
-               // <Modal
+               // <Modal <----------- QUITAR
                //    modalOpen={modalOpen}
                //    handleClose={close}
                //    recipeOpened={recipeOpened}
@@ -70,7 +68,7 @@ const RecipesContainer = () => {
                <DisplayedRecipe
                   {...recipeOpened}
                   modalOpen={modalOpen}
-                  handleClose={close} /* openModal={open} */
+                  handleClose={close}
                />
             )}
          </AnimatePresence>
