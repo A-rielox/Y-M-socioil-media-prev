@@ -55,9 +55,9 @@ const DisplayedBlog = ({
       featured: false,
    });
 
-   // FETCH PARA OBTENER VALORES DE NOMBRE Y RANGO DE LA RECETA + blog
+   // FETCH PARA OBTENER VALORES DE NOMBRE Y RANGO DEL user + blog
    useEffect(() => {
-      // lightblue obtener user para NOMBRE Y RANGO DE LA RECETA
+      // lightblue obtener NOMBRE Y RANGO DEL user
       const fetchUser = async () => {
          const {
             data: { queryUser },
@@ -110,21 +110,18 @@ const DisplayedBlog = ({
       updateAdminValues();
       // fin actualizando
 
+      // para boton con 👍
       const guardarBtn = e.target;
       guardarBtn.firstElementChild.classList.toggle('ready');
 
       timerRef.current = setTimeout(() => {
          guardarBtn.firstElementChild.classList.toggle('ready');
       }, 3000);
-
-      // PARA ACTUALIZAR LISTA DE TODOS LOS BLOGS
    };
 
    if (!blogUser) {
       return <Loading center />;
    }
-
-   // const { title, desc, category, createdAt, onHold, news, featured } = blog;
 
    // arreglo para class del color del nivel
    let colorLevel = blogUser.level.split(' ');

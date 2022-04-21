@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Loading from '../Loading';
 
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -46,23 +46,17 @@ const DisplayedRecipe = ({
    createdBy,
    // openModal,
    handleClose,
-   onHold,
+   onHold, // <---------- COMENTAR
 }) => {
    const { setEditRecipe, deleteRecipe, user, authFetch } = useAppContext();
    const [recipeUser, setRecipeUser] = useState(null);
 
    // pal checkbox
    const [adminValues, setAdminValues] = useState({ onHold });
-   const switchHold = e => {
-      // PONER DEBAJO DEL USEEFFECT PA CARGAR VALORES
-      const name = e.target.name;
-      const checked = e.target.checked;
 
-      setAdminValues({ ...adminValues, [name]: checked });
-      console.log(adminValues);
-   };
-
+   // FETCH PARA OBTENER VALORES DE NOMBRE Y RANGO DEL user + receta
    useEffect(() => {
+      // lightblue obtener  NOMBRE Y RANGO DEL user
       const fetchUser = async () => {
          const {
             data: { queryUser },
@@ -71,8 +65,54 @@ const DisplayedRecipe = ({
          setRecipeUser(queryUser);
       };
 
+      // lightblue obtener datos RECIPE
+      const fetchRecipe = async () => {
+         const {
+            data: { queryRecipe },
+         } = await authFetch.get(`/recipes/getRecipe?recipeId=${_id}`);
+
+         setAdminValues({
+            onHold: queryRecipe.onHold,
+         });
+      };
+
       fetchUser();
+      fetchRecipe();
    }, [_id]);
+
+   // green ACTUALIZA VALORES ADMIN
+   const switchAdminValues = e => {
+      // PONER DEBAJO DEL USEEFFECT PA CARGAR VALORES
+      const name = e.target.name;
+      const checked = e.target.checked;
+
+      setAdminValues({ ...adminValues, [name]: checked });
+   };
+   // green ENVIA  VALORES ADMIN A DB
+   const timerRef = useRef(null); // para 👍
+   const submitAdminValues = e => {
+      clearTimeout(timerRef.current);
+
+      // actualizando
+      const updateAdminValues = async () => {
+         await authFetch.patch(`/recipes/admin/${_id}`, {
+            onHold: adminValues.onHold,
+         });
+
+         // NO NECESITO ACTUALIZAR LOS DATOS CON LA RESPUESTA XQ MI ESTADO DE LOS CHECKBOX YA REPRESENTA EL VALOR DE LA DB
+      };
+
+      updateAdminValues();
+      // fin actualizando
+
+      // para boton con 👍
+      const guardarBtn = e.target;
+      guardarBtn.firstElementChild.classList.toggle('ready');
+
+      timerRef.current = setTimeout(() => {
+         guardarBtn.firstElementChild.classList.toggle('ready');
+      }, 3000);
+   };
 
    if (!recipeUser) {
       return <Loading center />;
@@ -202,7 +242,7 @@ const DisplayedRecipe = ({
                                     checked={adminValues.onHold}
                                     name="onHold"
                                     onChange={e => {
-                                       switchHold(e);
+                                       switchAdminValues(e);
                                     }}
                                  />
                                  <label htmlFor="box-1">En revisión</label>
@@ -212,9 +252,10 @@ const DisplayedRecipe = ({
                            <button
                               type="button"
                               className={`btn btn-edit`}
-                              onClick={() => {}}
+                              onClick={e => submitAdminValues(e)}
                            >
                               Guardar
+                              <span className="edit-success">👍</span>
                               <BsArrowRightSquareFill />
                            </button>
                         </div>
@@ -492,6 +533,17 @@ const Wrapper = styled.article`
       align-items: center;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
+
+      position: relative;
+      /*      👍           */
+      .edit-success {
+         display: none;
+         position: absolute;
+      }
+      .ready {
+         display: block;
+         right: 20px;
+      }
    }
 
    /* CHECKBOX */

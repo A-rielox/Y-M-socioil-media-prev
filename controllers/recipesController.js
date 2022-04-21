@@ -164,8 +164,11 @@ const updateAdminRecipe = async (req, res) => {
    const { id: recipeId } = req.params;
    const { onHold } = req.body;
 
-   if (!onHold) {
-      throw new BadRequestError('Favor proveer todos los valores');
+   // console.log(req.body);
+   // console.log(typeof onHold);
+
+   if (typeof onHold !== 'boolean') {
+      throw new BadRequestError('Favor proveer todos los valores 🥊');
    }
 
    const recipe = await Recipe.findOne({ _id: recipeId });
