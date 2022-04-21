@@ -33,26 +33,31 @@ const dropIn = {
 };
 
 const DisplayedBlog = ({
-   _id,
-   title,
-   desc,
-   category,
-   createdAt,
-   createdBy,
-   handleClose,
-   // admin
-   onHold,
-   news,
-   featured,
+   _id, // <----- MANTENER
+   title, // <----- MANTENER
+   desc, // <----- MANTENER
+   category, // <----- MANTENER
+   createdAt, // <----- MANTENER
+   createdBy, // <----- MANTENER
+   handleClose, // <----- MANTENER
+   // valores para admin,
+   // onHold,
+   // news,
+   // featured,
    //
 }) => {
    const { setEditBlog, deleteBlog, user, authFetch } = useAppContext();
    const [blogUser, setBlogUser] = useState(null);
    // pal checkbox
-   const [adminValues, setAdminValues] = useState({ onHold, news, featured });
+   const [adminValues, setAdminValues] = useState({
+      onHold: false,
+      news: false,
+      featured: false,
+   });
 
-   // FETCH PARA OBTENER VALORES DE NOMBRE Y RANGO DE LA RECETA
+   // FETCH PARA OBTENER VALORES DE NOMBRE Y RANGO DE LA RECETA + blog
    useEffect(() => {
+      // lightblue obtener user para NOMBRE Y RANGO DE LA RECETA
       const fetchUser = async () => {
          const {
             data: { queryUser },
@@ -61,10 +66,24 @@ const DisplayedBlog = ({
          setBlogUser(queryUser);
       };
 
+      // lightblue obtener datos BLOG
+      const fetchBlog = async () => {
+         const {
+            data: { queryBlog },
+         } = await authFetch.get(`/blogs/getBlog?blogId=${_id}`);
+
+         setAdminValues({
+            onHold: queryBlog.onHold,
+            news: queryBlog.news,
+            featured: queryBlog.featured,
+         });
+      };
+
       fetchUser();
+      fetchBlog();
    }, [_id]);
 
-   // ACTUALIZA VALORES ADMIN
+   // green ACTUALIZA VALORES ADMIN
    const switchAdminValues = e => {
       const name = e.target.name;
       const checked = e.target.checked;
@@ -72,7 +91,7 @@ const DisplayedBlog = ({
       setAdminValues({ ...adminValues, [name]: checked });
    };
 
-   // ENVIA VALORES ADMIN A DB
+   // green ENVIA  VALORES ADMIN A DB
    const timerRef = useRef(null); // para 👍
    const submitAdminValues = e => {
       clearTimeout(timerRef.current);
@@ -104,6 +123,8 @@ const DisplayedBlog = ({
    if (!blogUser) {
       return <Loading center />;
    }
+
+   // const { title, desc, category, createdAt, onHold, news, featured } = blog;
 
    // arreglo para class del color del nivel
    let colorLevel = blogUser.level.split(' ');

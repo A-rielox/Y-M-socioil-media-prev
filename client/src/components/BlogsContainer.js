@@ -32,7 +32,6 @@ const BlogsContainer = () => {
       setModalOpen(true);
 
       const blogSelected = blogs.filter(blog => blog._id === blogId);
-      console.log(blogSelected);
 
       setBlogOpened(blogSelected[0]);
    };
@@ -71,7 +70,7 @@ const BlogsContainer = () => {
          {/* ♏♏♏♏                      👇 */}
          <AnimatePresence>
             {modalOpen && blogOpened && (
-               // <ModalBlog
+               // <ModalBlog <----------- QUITAR
                //    modalOpen={modalOpen}
                //    handleClose={close}
                //    blogOpened={blogOpened}
@@ -81,7 +80,6 @@ const BlogsContainer = () => {
                      {...blogOpened}
                      modalOpen={modalOpen}
                      handleClose={close}
-                     // blogOpened={blogOpened}
                   />
                   <button onClick={close}>Close</button>
                </>
