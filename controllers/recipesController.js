@@ -53,7 +53,7 @@ const getAllRecipes = async (req, res) => {
    // para buscar es: ?status=pending&jobType=boss
    const { search, oilsList, problemsList, sort } = req.query;
 
-   const queryObject = {};
+   // const queryObject = { onHold: 'false' };
 
    if (oilsList && oilsList !== 'todos') {
       queryObject.oilsList = oilsList;
