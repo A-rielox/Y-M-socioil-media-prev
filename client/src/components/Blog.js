@@ -254,7 +254,7 @@ const Wrapper = styled.article`
          text-align: ${props => (props.styledNews ? 'center' : null)};
 
          text-shadow: ${props =>
-            props.styledNews ? '4px 3px 0 var(--primary-500)' : null};
+            props.styledNews ? '4px 4px 0 var(--primary-500)' : null};
 
          color: ${props => (props.styledNews ? '#e0dfdc' : 'inherit')};
       }
