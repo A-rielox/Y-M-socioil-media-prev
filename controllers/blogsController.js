@@ -66,6 +66,9 @@ const getAllBlogs = async (req, res) => {
       queryObject.title = { $regex: search, $options: 'i' };
    }
 
+   /* 
+   
+   */
    // 📰📰📰
    console.log(req.query);
    if (news) {
