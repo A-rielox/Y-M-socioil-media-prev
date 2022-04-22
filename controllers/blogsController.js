@@ -70,16 +70,13 @@ const getAllBlogs = async (req, res) => {
    
    */
    // 📰📰📰
-   console.log(req.query);
    if (news) {
-      console.log('si hayyy news');
       if (news === 'true') {
          queryObject.news = true;
       } else if (news === 'false') {
          queryObject.news = false;
       }
    }
-   console.log(queryObject);
 
    //SIN AWAIT
    let result = Blog.find(queryObject);
