@@ -53,13 +53,21 @@ const Stats = () => {
    return (
       <Wrapper>
          <h5>
-            {totalBlogs} noticia{blogs.length > 1 && 's'} encontrada
-            {blogs.length > 1 && 's'}
+            tenemos {totalBlogs} noticia{blogs.length > 1 && 's'}{' '}
+            {/* encontrada
+            {blogs.length > 1 && 's'} */}
          </h5>
 
          <div className="recipes">
             {blogs.map(blog => {
-               return <Blog key={blog._id} {...blog} openModal={open} />;
+               return (
+                  <Blog
+                     styledNews={true}
+                     key={blog._id}
+                     {...blog}
+                     openModal={open}
+                  />
+               );
             })}
          </div>
 

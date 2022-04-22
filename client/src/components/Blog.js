@@ -17,6 +17,7 @@ const Blog = ({
    createdBy,
    openModal,
    onHold,
+   styledNews,
 }) => {
    const { setEditBlog, deleteBlog, user, authFetch } = useAppContext();
    const [blogUser, setBlogUser] = useState(null);
@@ -66,7 +67,7 @@ const Blog = ({
    date = date.format('MMM, YYYY');
 
    return (
-      <Wrapper onClick={() => openModal(_id)}>
+      <Wrapper styledNews={styledNews} onClick={() => openModal(_id)}>
          <header>
             <h5>{title}</h5>
 
@@ -122,7 +123,10 @@ const Wrapper = styled.article`
    display: flex;
    flex-direction: column;
 
-   border-radius: 20px;
+   //${props => (props.styledNews ? 'none' : 'flex')}
+   /* border-radius: 20px; */
+   border-radius: ${props =>
+      props.styledNews ? 'var(--borderRadius)' : '20px'};
    -webkit-box-shadow: 5px 5px 15px 5px rgba(120, 126, 203, 0.56);
    box-shadow: 5px 5px 15px 5px rgba(120, 126, 203, 0.56);
 
@@ -221,26 +225,45 @@ const Wrapper = styled.article`
 
       height: 150px;
 
-      background: linear-gradient(
+      //${props => (props.styledNews ? 'none' : 'flex')}
+      /* background: linear-gradient(
          90deg,
          rgba(120, 126, 203, 0.9202226056438201) 0%,
          rgba(207, 201, 220, 0.8529957148875176) 50%
-      );
+      ); */
+      background: ${props =>
+         props.styledNews
+            ? 'linear-gradient(90deg,rgba(84, 84, 91, 0.92) 0%,rgba(87, 85, 91, 0.556) 50%)'
+            : 'linear-gradient(90deg,rgba(120, 126, 203, 0.9202226056438201) 0%,rgba(207, 201, 220, 0.529957148875176) 50%)'};
 
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
+      //var(--borderRadius)
+      border-top-left-radius: ${props =>
+         props.styledNews ? 'var(--borderRadius)' : '20px'};
+      /* border-top-left-radius: 20px; */
+      border-top-right-radius: ${props =>
+         props.styledNews ? 'var(--borderRadius)' : '20px'};
+      /* border-top-right-radius: 20px; */
 
       h5 {
          letter-spacing: 0;
          margin-bottom: 0.25rem;
          font-weight: bold;
-         font-size: 1.6rem;
+         /* font-size: 1.6rem; */
+         font-size: ${props => (props.styledNews ? '2.2rem' : '1.6rem')};
+
+         text-align: ${props => (props.styledNews ? 'center' : null)};
+
+         text-shadow: ${props =>
+            props.styledNews ? '4px 3px 0 var(--primary-500)' : null};
+
+         color: ${props => (props.styledNews ? '#e0dfdc' : 'inherit')};
       }
    }
 
    .ulListProblem {
       margin: 0 20px;
-      display: flex;
+      /* display: flex; */
+      display: ${props => (props.styledNews ? 'none' : 'flex')};
       justify-content: space-between;
       text-transform: capitalize;
 
