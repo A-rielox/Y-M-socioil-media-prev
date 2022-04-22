@@ -11,7 +11,7 @@ import {
 } from './pages/dashboard';
 /* 
 
-previo a cambio a MUI
+
 
 */
 // import { motion } from "framer-motion"

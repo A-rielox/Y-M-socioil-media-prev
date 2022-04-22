@@ -16,6 +16,7 @@ const Blog = ({
    createdAt,
    createdBy,
    openModal,
+   onHold,
 }) => {
    const { setEditBlog, deleteBlog, user, authFetch } = useAppContext();
    const [blogUser, setBlogUser] = useState(null);
@@ -75,10 +76,25 @@ const Blog = ({
          </header>
 
          <div className="content">
-            <div
+            {/* <div
                className="content-center"
                dangerouslySetInnerHTML={{ __html: desc }}
-            ></div>
+            ></div> */}
+
+            {onHold ? (
+               <div className="onHoldWrapper">
+                  <span className="onHold">
+                     <button type="button" className="btn edit-btn">
+                        próximamente <br /> 🧘
+                     </button>
+                  </span>
+               </div>
+            ) : (
+               <div
+                  className="content-center"
+                  dangerouslySetInnerHTML={{ __html: desc }}
+               ></div>
+            )}
 
             <footer>
                <div className="actions">
@@ -122,6 +138,24 @@ const Wrapper = styled.article`
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
+      .onHoldWrapper {
+         min-height: 200px;
+         height: 100%;
+         position: relative;
+      }
+      .onHold {
+         position: absolute;
+         top: 50%;
+         right: 50%;
+         transform: translate(50%, -50%);
+
+         .edit-btn {
+            opacity: 0.6;
+            height: auto;
+            font-size: 2rem;
+         }
+      }
    }
    .content-center {
       max-height: 700px;
@@ -304,6 +338,18 @@ const Wrapper = styled.article`
       }
 
       border-top: 1px solid var(--grey-100);
+      @media (max-width: 576px) {
+         .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+
+            .status {
+               margin-left: 0;
+            }
+         }
+      }
    }
    .edit-btn,
    .delete-btn {

@@ -23,7 +23,6 @@ const AddBlog = () => {
       createBlog,
    } = useAppContext();
 
-   // red red PRUEBA red red
    useEffect(() => {
       // Anything in here is fired on component mount.
       return () => {

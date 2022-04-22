@@ -31,4 +31,9 @@ const Wrapper = styled.div`
       text-transform: capitalize;
       letter-spacing: var(--letterSpacing);
    }
+
+   @media (max-width: 576px) {
+      margin-top: 10px;
+      align-self: center;
+   }
 `;

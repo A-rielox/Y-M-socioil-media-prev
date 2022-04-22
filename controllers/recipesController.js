@@ -51,9 +51,10 @@ const deleteRecipe = async (req, res) => {
 // ▦▦▦▦▦▦▦▦ FILTROS ▦▦▦▦▦▦▦▦
 const getAllRecipes = async (req, res) => {
    // para buscar es: ?status=pending&jobType=boss
-   const { search, oilsList, problemsList, sort } = req.query;
+   const { search, oilsList, problemsList, sort /* onHold */ } = req.query;
 
-   // const queryObject = { onHold: 'false' };
+   // const queryObject = { onHold: onHold };
+   const queryObject = {};
 
    if (oilsList && oilsList !== 'todos') {
       queryObject.oilsList = oilsList;

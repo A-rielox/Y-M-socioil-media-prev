@@ -29,22 +29,12 @@ const RecipesContainer = () => {
    };
 
    useEffect(() => {
-      getRecipes();
+      getRecipes(/* { onHold: false } */);
    }, [search, searchOil, searchProblem, sort, page]);
-
-   // yellow filtro en front FILTRAR LAS "EN REVISION"
-   // useEffect(() => {
-   //    const filteredRecipes = recipes.filter(recipe => recipe.onHold === false);
-   //    setNotOnHoldRecipes(filteredRecipes);
-   // }, [recipes]);
 
    if (isLoading) {
       return <Loading center />;
    }
-   // yellow filtro en front
-   // if (isLoading && notOnHoldRecipes.length === 0) {
-   //    return <Loading center />;
-   // }
 
    if (recipes.length === 0) {
       return (
@@ -66,13 +56,6 @@ const RecipesContainer = () => {
                return <Recipe key={recipe._id} {...recipe} openModal={open} />;
             })}
          </div>
-
-         {/* yellow filtro en front */}
-         {/* <div className="recipes">
-            {notOnHoldRecipes.map(recipe => {
-               return <Recipe key={recipe._id} {...recipe} openModal={open} />;
-            })}
-         </div> */}
 
          {numOfPages > 1 && <PageBtnContainer />}
 

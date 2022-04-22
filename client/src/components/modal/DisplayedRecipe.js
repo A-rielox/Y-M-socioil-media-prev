@@ -459,6 +459,23 @@ const Wrapper = styled.article`
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      @media (max-width: 576px) {
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+         width: 100%;
+         .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+
+            .status {
+               margin-left: 0;
+            }
+         }
+      }
    }
    .footer-admin-wrapper {
       display: flex;
@@ -484,6 +501,11 @@ const Wrapper = styled.article`
       color: var(--green-dark);
       background: var(--green-light);
       margin-right: 0.5rem;
+
+      @media (max-width: 576px) {
+         width: 100%;
+         text-align: center;
+      }
    }
    .delete-btn {
       color: var(--red-dark);

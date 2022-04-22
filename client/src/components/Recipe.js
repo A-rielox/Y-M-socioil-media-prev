@@ -21,6 +21,7 @@ const Recipe = ({
    userNane, // quitar
    userLevel, // quitar
    openModal,
+   onHold,
 }) => {
    const { /* setEditRecipe, deleteRecipe, */ user, authFetch } =
       useAppContext();
@@ -102,7 +103,15 @@ const Recipe = ({
             </header>
 
             <div className="content-center">
-               <p>{desc}</p>
+               {onHold && (
+                  <span className="onHold">
+                     <button type="button" className="btn edit-btn">
+                        próximamente <br /> 🧘
+                     </button>
+                  </span>
+               )}
+
+               {!onHold && <p className="desc">{desc}</p>}
             </div>
 
             <footer>
@@ -125,6 +134,14 @@ const Recipe = ({
 
 export default Recipe;
 
+/* @media (min-width: 576px) {
+      }
+      @media (min-width: 992px) {
+         
+      }
+      @media (min-width: 1120px) {
+      } */
+
 const Wrapper = styled.article`
    background: var(--white);
    border-radius: 20px;
@@ -133,6 +150,10 @@ const Wrapper = styled.article`
    box-shadow: 5px 5px 15px 5px rgba(120, 126, 203, 0.56);
 
    display: flex;
+
+   @media (max-width: 576px) {
+      flex-direction: column;
+   }
 
    .left {
       width: 50%;
@@ -154,6 +175,15 @@ const Wrapper = styled.article`
 
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
+
+      @media (max-width: 576px) {
+         width: 100%;
+
+         border-top-left-radius: 20px;
+         border-bottom-left-radius: 0;
+         border-top-right-radius: 20px;
+         border-bottom-right-radius: 0;
+      }
    }
 
    header {
@@ -161,7 +191,7 @@ const Wrapper = styled.article`
       border-bottom: 1px solid var(--grey-100);
       display: grid;
       align-items: center;
-      height: 100px;
+      height: content-height;
       h5 {
          letter-spacing: 0;
          margin-bottom: 0.25rem;
@@ -185,6 +215,16 @@ const Wrapper = styled.article`
 
          &:last-child {
             padding-bottom: 1.5rem;
+
+            @media (max-width: 576px) {
+               padding-bottom: 0;
+            }
+         }
+
+         @media (max-width: 576px) {
+            &:not(:first-child) {
+               margin-left: 0.5rem;
+            }
          }
       }
 
@@ -192,8 +232,20 @@ const Wrapper = styled.article`
          font-size: 0.7rem;
          margin-right: 0.5rem;
          color: #dfb33b;
+
+         @media (max-width: 576px) {
+            margin-right: 0.2rem;
+         }
+      }
+
+      @media (max-width: 576px) {
+         display: flex;
+         flex-wrap: wrap;
+         width: 90%;
+         justify-content: center;
       }
    }
+
    .ulListProblem {
       margin: 0 20px;
       text-transform: capitalize;
@@ -207,10 +259,24 @@ const Wrapper = styled.article`
 
          &:first-child {
             padding-top: 0.5rem;
+
+            @media (max-width: 576px) {
+               padding-top: 0;
+            }
          }
 
          &:last-child {
             padding-bottom: 0.5rem;
+
+            @media (max-width: 576px) {
+               padding-bottom: 0;
+            }
+         }
+
+         @media (max-width: 576px) {
+            &:not(:first-child) {
+               margin-left: 0.5rem;
+            }
          }
       }
 
@@ -218,6 +284,17 @@ const Wrapper = styled.article`
          font-size: 0.7rem;
          margin-right: 0.5rem;
          color: var(--red-dark);
+
+         @media (max-width: 576px) {
+            margin-right: 0.2rem;
+         }
+      }
+
+      @media (max-width: 576px) {
+         display: flex;
+         flex-wrap: wrap;
+         width: 90%;
+         justify-content: center;
       }
    }
 
@@ -285,17 +362,22 @@ const Wrapper = styled.article`
    }
    .content-center {
       max-height: 200px;
+      min-height: 100px;
       overflow: hidden;
 
-      /* @media (min-width: 576px) {
-      }
-      @media (min-width: 992px) {
-         .btn:first-child {
-            margin-bottom: 10px;
+      position: relative;
+      .onHold {
+         position: absolute;
+         top: 55%;
+         right: 50%;
+         transform: translate(50%, -50%);
+
+         .edit-btn {
+            opacity: 0.6;
+            height: auto;
+            font-size: 2rem;
          }
       }
-      @media (min-width: 1120px) {
-      } */
    }
 
    .status {
@@ -329,6 +411,19 @@ const Wrapper = styled.article`
       }
 
       border-top: 1px solid var(--grey-100);
+
+      @media (max-width: 576px) {
+         .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+
+            .status {
+               margin-left: 0;
+            }
+         }
+      }
    }
 
    @media (min-width: 700px) {

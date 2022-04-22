@@ -314,6 +314,12 @@ const AppProvider = ({ children }) => {
          url = url + `&search=${search}`;
       }
 
+      // AL BACK "ONHOLD" SIEMPRE VA A LLEGAR COMO STRING, ASÍ Q CUANDO NO LO QUIERA LO TENGO Q PASAR COMO NULL ACÁ PARA Q ALLÁ LLEGUE COMO UNDEFINED ( LO TENGO Q PONER CUANDO LLAME "getRecipes" XQ LO ESTOY DESTRUCTURANDO )
+      // ponia directo "&onHold=${onHold}" en el url
+      // if (typeof onHold === 'boolean') {
+      // url = url + `&onHold=${onHold}`;
+      // }
+
       dispatch({ type: GET_RECIPES_BEGIN });
 
       try {

@@ -32,19 +32,21 @@ const Landing = () => {
                      buscando.
                   </p>
 
-                  <motion.div
-                     whileHover={{ scale: 1.1 }}
-                     whileTap={{ scale: 1.05 }}
-                     transition={{
-                        type: 'spring',
-                        stiffness: 150,
-                        ease: 'easeInOut',
-                     }}
-                  >
-                     <Link to="/register" className="btn btn-hero">
-                        Login / Registro
-                     </Link>
-                  </motion.div>
+                  <div className="btn-wrapper">
+                     <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 1.05 }}
+                        transition={{
+                           type: 'spring',
+                           stiffness: 150,
+                           ease: 'easeInOut',
+                        }}
+                     >
+                        <Link to="/register" className="btn btn-hero">
+                           Login / Registro
+                        </Link>
+                     </motion.div>
+                  </div>
                </div>
 
                {/* <img
@@ -61,29 +63,7 @@ const Landing = () => {
    );
 };
 
-/* 
-type: "spring", stiffness: 100
-
-
-<motion.button
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9 }}
-  />
-
-
-  whileHover={{ scale: 2, rotate: 90 }}
-      whileTap={{
-        scale: 0.8,
-        rotate: -90,
-        borderRadius: "100%"
-      }}
-*/
-
 export default Landing;
-
-// const StyledLink = styled(Link)`
-//    justify-self: start;
-// `;
 
 const Wrapper = styled.main`
    .info {
@@ -122,7 +102,13 @@ const Wrapper = styled.main`
       max-width: 25vh;
       position: absolute;
       top: 10vh;
+
+      @media (max-width: 576px) {
+         left: 50%;
+         transform: translateX(-50%);
+      }
    }
+
    @media (min-width: 992px) {
       .page {
          grid-template-columns: 1fr 1fr;
@@ -131,6 +117,20 @@ const Wrapper = styled.main`
       .main-img {
          display: block;
          width: 100%;
+      }
+   }
+
+   @media (max-width: 576px) {
+      .btn-wrapper {
+         width: 100%;
+         position: relative;
+      }
+      .btn-hero {
+         white-space: nowrap;
+         position: absolute;
+         left: 50%;
+         transform: translateX(-50%);
+         margin-top: 1rem;
       }
    }
 `;
