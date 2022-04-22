@@ -35,7 +35,7 @@ const BlogsContainer = () => {
    };
 
    useEffect(() => {
-      getBlogs();
+      getBlogs({ news: false });
    }, [searchBlog, searchCategory, sort, pageBlogs]);
 
    if (isLoading) {

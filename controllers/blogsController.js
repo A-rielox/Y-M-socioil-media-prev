@@ -53,7 +53,7 @@ const deleteBlog = async (req, res) => {
 // ▦▦▦▦▦▦▦▦ FILTROS ▦▦▦▦▦▦▦▦
 const getAllBlogs = async (req, res) => {
    // para buscar es: ?status=pending&jobType=boss
-   const { search, category, sort } = req.query;
+   const { search, category, sort, news } = req.query;
 
    const queryObject = {};
 
@@ -65,6 +65,18 @@ const getAllBlogs = async (req, res) => {
    if (search) {
       queryObject.title = { $regex: search, $options: 'i' };
    }
+
+   // 📰📰📰
+   console.log(req.query);
+   if (news) {
+      console.log('si hayyy news');
+      if (news === 'true') {
+         queryObject.news = true;
+      } else if (news === 'false') {
+         queryObject.news = false;
+      }
+   }
+   console.log(queryObject);
 
    //SIN AWAIT
    let result = Blog.find(queryObject);
@@ -162,6 +174,7 @@ const updateAdminBlog = async (req, res) => {
    // console.log(req.body); { onHold: true, news: false, featured: true }
    // console.log(typeof news); boolean
 
+   // CAMBIARLO XQ SIEMPRE LLEGAN COMO STRING
    if (
       typeof onHold !== 'boolean' ||
       typeof news !== 'boolean' ||

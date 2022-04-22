@@ -419,7 +419,8 @@ const AppProvider = ({ children }) => {
       clearAlert();
    };
 
-   const getBlogs = async () => {
+   // cuando los quiera todos PONGO "getBlogs({ news: null })" en donde la esté llamando
+   const getBlogs = async ({ news }) => {
       const { searchBlog, searchCategory, sort, pageBlogs } = state;
 
       let url = `/blogs?page=${pageBlogs}&category=${searchCategory}&sort=${sort}`;
@@ -427,6 +428,11 @@ const AppProvider = ({ children }) => {
       // search lo voy a dejar separado xq es el único q puede estar vacio
       if (searchBlog) {
          url = url + `&search=${searchBlog}`;
+      }
+
+      // 📰📰📰
+      if (typeof news === 'boolean') {
+         url = url + `&news=${news}`;
       }
 
       dispatch({ type: GET_BLOGS_BEGIN });
@@ -480,7 +486,7 @@ const AppProvider = ({ children }) => {
 
       try {
          await authFetch.delete(`/blogs/${blogId}`);
-         getBlogs(); // este va a poner isLoadin: false
+         getBlogs({ news: false }); // este va a poner isLoadin: false
       } catch (error) {
          // logoutUser(); red MIENTRAS PRUEBO red
       }
