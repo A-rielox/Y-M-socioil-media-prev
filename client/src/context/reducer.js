@@ -243,6 +243,7 @@ const reducer = (state, action) => {
    if (action.type === GET_RECIPES_SUCCESS) {
       const { totalRecipes, numOfPages, recipes } = action.payload;
 
+      // red red quitar list4Problems red red
       let tempRecipes = [...recipes];
       let list4Problems = tempRecipes.map(recipe => recipe.problemsList);
       list4Problems = [...new Set(list4Problems.flat())];

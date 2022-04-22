@@ -16,6 +16,7 @@ const SearchContainer = () => {
       clearFilters,
    } = useAppContext();
 
+   // cada vez q cambia uno de estos valores en el context => se llama getRecipes()
    const handleSearch = e => {
       if (isLoading) return;
       const name = e.target.name;
@@ -54,13 +55,20 @@ const SearchContainer = () => {
                ></InputSelect>
 
                {/* search by problem */}
-               <InputSelect
+               {/* <InputSelect
                   labelText="con problema"
                   name="searchProblem"
                   value={searchProblem}
                   changeStateValues={handleSearch}
                   list={['todos', ...list4Problems]}
-               ></InputSelect>
+               ></InputSelect> */}
+               <InputSimple
+                  labelText="con problema"
+                  type="text"
+                  name="searchProblem"
+                  value={searchProblem}
+                  changeStateValues={handleSearch}
+               ></InputSimple>
 
                {/* sort */}
                <InputSelect

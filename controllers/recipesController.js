@@ -59,8 +59,11 @@ const getAllRecipes = async (req, res) => {
    if (oilsList && oilsList !== 'todos') {
       queryObject.oilsList = oilsList;
    }
+   // if (problemsList && problemsList !== 'todos') {
+   //    queryObject.problemsList = problemsList;
+   // }
    if (problemsList && problemsList !== 'todos') {
-      queryObject.problemsList = problemsList;
+      queryObject.problemsList = { $regex: problemsList, $options: 'i' };
    }
    // FILTRA EN titulo
    if (search) {
